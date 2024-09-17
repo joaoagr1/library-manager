@@ -7,6 +7,6 @@
 
     <!--<include file="liquibase/changelog/initial_schema.xml" relativeToChangelogFile="false"/>-->
 
-    
+    <include file="liquibase/changelog/create_table_users.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
