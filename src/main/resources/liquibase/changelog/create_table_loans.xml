@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="3" author="João Rolo">
+
+        <preConditions onFail="MARK_RAN" onErrorMessage="The loans table has already been created">
+            <not>
+                <tableExists tableName="LOANS"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="LOANS">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="book_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="loan_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="return_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+
+        <addForeignKeyConstraint baseTableName="LOANS"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_loans_user"
+                                 referencedTableName="USERS"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="LOANS"
+                                 baseColumnNames="book_id"
+                                 constraintName="fk_loans_book"
+                                 referencedTableName="BOOKS"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+
+
+
+</databaseChangeLog>
