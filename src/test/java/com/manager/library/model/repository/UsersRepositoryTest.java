@@ -40,5 +40,22 @@ class UsersRepositoryTest {
 
     }
 
+    @Test
+    @DisplayName("Should delete a user")
+    public void shouldDeleteAUser() {
 
+        Users user = Users.builder()
+                .name("João Rolo")
+                .email("joao.rollo1@gmail.com")
+                .registrationDate(LocalDate.of(2021, 10, 10))
+                .phone("44933000755")
+                .build();
+
+        usersRepository.save(user);
+
+        usersRepository.delete(user);
+
+        assertThat(usersRepository.findById(user.getId())).isEmpty();
+
+    }
 }
