@@ -19,9 +19,10 @@ public class UsersService {
 
     public Users createUser(UserRequestDTO userRequestDTO) {
 
+        validateUniqueFields(userRequestDTO);
+
         Users user = UserAdapter.toEntity(userRequestDTO);
         return repository.save(user);
-
     }
 
 
@@ -53,6 +54,18 @@ public class UsersService {
 
         return repository.findAll();
 
+    }
+
+
+    private void validateUniqueFields(UserRequestDTO userRequestDTO) {
+
+        if (repository.existsByEmail(userRequestDTO.email())) {
+            throw new IllegalArgumentException("Email already in use");
+        }
+
+        if (repository.existsByPhone(userRequestDTO.phone())) {
+            throw new IllegalArgumentException("Phone already in use");
+        }
     }
 
 }
