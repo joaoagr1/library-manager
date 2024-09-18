@@ -50,4 +50,29 @@ class LoanRepositoryTest {
 
     }
 
+    @Test
+    @DisplayName("Should delete a loan")
+    public void shouldDeleteALoan() {
+
+        Loan loan = Loan.builder()
+                .book(Book.builder()
+                        .title("Clean Code")
+                        .author("Robert C. Martin")
+                        .isbn("9780132350884").build())
+                .user(Users.builder()
+                        .name("João Rolo")
+                        .email("joao.rollo1@gmail.com")
+                        .phone("44933000755").build()).build();
+
+        usersRepository.save(loan.getUser());
+        bookRepository.save(loan.getBook());
+        loanRepository.save(loan);
+
+        loanRepository.delete(loan);
+
+        assertTrue(loanRepository.findById(loan.getId()).isEmpty());
+
+    }
+
+
 }
