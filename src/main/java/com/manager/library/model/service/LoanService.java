@@ -3,7 +3,10 @@ package com.manager.library.model.service;
 import com.manager.library.model.adapter.LoanAdapter;
 import com.manager.library.model.domain.Loan;
 import com.manager.library.model.dtos.LoanRequestDTO;
+import com.manager.library.model.exceptions.EntityNotFoundException;
+import com.manager.library.model.repository.BookRepository;
 import com.manager.library.model.repository.LoanRepository;
+import com.manager.library.model.repository.UsersRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +21,12 @@ public class LoanService {
     @Autowired
     private LoanRepository loanRepository;
 
+    @Autowired
+    private LoanAdapter loanAdapter;
+
     public Loan createLoan(LoanRequestDTO loanRequestDTO) {
 
-        Loan loan = LoanAdapter.toEntity(loanRequestDTO);
+        Loan loan = loanAdapter.toEntity(loanRequestDTO);
         return loanRepository.save(loan);
 
     }
@@ -32,17 +38,20 @@ public class LoanService {
     }
 
     public Optional<Loan> getLoanById(UUID id) {
+
+        loanRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Loan not found"));
         return loanRepository.findById(id);
+
     }
 
     @Transactional
     public Loan updateLoan(UUID id, LoanRequestDTO loanRequestDTO) {
 
-        Optional<Loan> existingLoan = loanRepository.findById(id);
+        Loan existingLoan = loanRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Loan not found"));
 
-        Loan loanToUpdate = LoanAdapter.toEntity(loanRequestDTO);
+        Loan loanToUpdate = loanAdapter.toEntity(loanRequestDTO);
 
-        loanToUpdate.setId(existingLoan.get().getId());
+        loanToUpdate.setId(existingLoan.getId());
 
         return loanRepository.save(loanToUpdate);
 
@@ -50,6 +59,7 @@ public class LoanService {
 
     public void deleteLoan(UUID id) {
 
+        loanRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Loan not found"));
         loanRepository.deleteById(id);
 
     }

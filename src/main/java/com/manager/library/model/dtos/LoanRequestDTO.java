@@ -12,10 +12,6 @@ public record LoanRequestDTO(
         UUID userId,
         UUID bookId,
 
-        @PastOrPresent(message = "Loan date must be a past or present date")
-        @NotNull(message = "Loan date is required")
-        LocalDate loanDate,
-
         @NotNull(message = "Return date is required")
         @Future(message = "Return date must be a future date")
         LocalDate returnDate
