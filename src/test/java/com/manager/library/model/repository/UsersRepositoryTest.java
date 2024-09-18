@@ -58,4 +58,44 @@ class UsersRepositoryTest {
         assertThat(usersRepository.findById(user.getId())).isEmpty();
 
     }
+
+
+    @Test
+    @DisplayName("Should find a user by email")
+    public void shouldFindAUserByEmail() {
+
+        Users user = Users.builder()
+                .name("João Rolo")
+                .email("joao.rollo1@gmail.com")
+                .registrationDate(LocalDate.of(2021, 10, 10))
+                .phone("44933000755")
+                .build();
+
+        usersRepository.save(user);
+
+        boolean userFound = usersRepository.existsByEmail("joao.rollo1@gmail.com");
+
+        assertThat(userFound).isTrue();
+
+    }
+
+    @Test
+    @DisplayName("Should find a user by phone")
+    public void shouldFindAUserByPhone() {
+
+        Users user = Users.builder()
+                .name("João Rolo")
+                .email("joao.rollo1@gmail.com")
+                .registrationDate(LocalDate.of(2021, 10, 10))
+                .phone("44933000755")
+                .build();
+
+        usersRepository.save(user);
+
+        boolean userFound = usersRepository.existsByPhone("44933000755");
+
+        assertThat(userFound).isTrue();
+
+    }
+
 }
