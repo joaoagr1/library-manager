@@ -25,19 +25,19 @@ public class Loan {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @NotNull(message = "User is required")
     @JoinColumn(name = "user_id")
     private Users user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @NotNull(message = "Book is required")
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
     @PastOrPresent(message = "Loan date must be a past or present date")
     @NotNull(message = "Loan date is required")
-    private LocalDate loanDate;
+    private LocalDate loanDate = LocalDate.now();
 
     @NotNull(message = "Return date is required")
     @Future(message = "Return date must be a future date")

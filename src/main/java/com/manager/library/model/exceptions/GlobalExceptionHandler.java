@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @ControllerAdvice
@@ -51,9 +49,9 @@ public class GlobalExceptionHandler {
             return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(EntityNotFoundException.class)
     @ResponseBody
-    public ResponseEntity<ErrorReponseDTO> handleUserNotFoundException(UserNotFoundException ex) {
+    public ResponseEntity<ErrorReponseDTO> handleUserNotFoundException(EntityNotFoundException ex) {
 
         ErrorReponseDTO errorDTO = new ErrorReponseDTO(
                 ex.getMessage(),
