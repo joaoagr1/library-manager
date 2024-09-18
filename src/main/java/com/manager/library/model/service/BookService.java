@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.UUID;
 
 
@@ -24,20 +23,28 @@ public class BookService {
 
     public Book createBook(BookRequestDTO bookRequestDTO) {
 
+        bookRepository.findByIsbn(bookRequestDTO.isbn()).ifPresent(book -> {
+            throw new IllegalArgumentException("Book with ISBN already exists");
+        });
+
+
+
         Book book = BookAdapter.toEntity(bookRequestDTO);
         return bookRepository.save(book);
 
     }
 
 
-    public Optional<Book> getBookById(UUID id) {
+    public Book getBookById(UUID id) {
 
-        return bookRepository.findById(id);
+        return bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Book not found"));
 
     }
 
 
     public Book updateBook(UUID id, BookRequestDTO bookRequestDTO) {
+
+        bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Book not found"));
 
 
         Book book = BookAdapter.toEntity(bookRequestDTO);
@@ -47,6 +54,8 @@ public class BookService {
     }
 
     public void deleteBook(UUID id) {
+
+        bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Book not found"));
 
         bookRepository.deleteById(id);
     }
