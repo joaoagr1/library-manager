@@ -83,5 +83,15 @@ class BookRepositoryTest {
 
     }
 
+    @Test
+    @DisplayName("Should not find a book by isbn")
+    public void shouldNotFindABookByIsbn() {
+
+        Optional<Book> bookFound = bookRepository.findByIsbn("9780132350884");
+
+        assertThat(bookFound).isEmpty();
+
+    }
+
 
 }
