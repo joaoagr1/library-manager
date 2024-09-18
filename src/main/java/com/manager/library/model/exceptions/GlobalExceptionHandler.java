@@ -51,4 +51,15 @@ public class GlobalExceptionHandler {
             return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
-    }
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseBody
+    public ResponseEntity<ErrorReponseDTO> handleUserNotFoundException(UserNotFoundException ex) {
+
+        ErrorReponseDTO errorDTO = new ErrorReponseDTO(
+                ex.getMessage(),
+                HttpStatus.NOT_FOUND.value()
+        );
+
+        return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
+
+    }}

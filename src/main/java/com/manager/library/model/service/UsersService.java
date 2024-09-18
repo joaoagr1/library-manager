@@ -3,6 +3,7 @@ package com.manager.library.model.service;
 import com.manager.library.model.adapter.UserAdapter;
 import com.manager.library.model.domain.Users;
 import com.manager.library.model.dtos.UserRequestDTO;
+import com.manager.library.model.exceptions.UserNotFoundException;
 import com.manager.library.model.repository.UsersRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class UsersService {
     @Transactional
     public Users updateUser(UserRequestDTO userRequestDTO, UUID id) {
 
-        Users existingUser = repository.findById(id).orElseThrow();
+        Users existingUser = repository.findById(id).orElseThrow( () -> new UserNotFoundException("User not found"));
         UserAdapter.updateEntity(existingUser, userRequestDTO);
         return repository.save(existingUser);
 
@@ -39,6 +40,8 @@ public class UsersService {
     @Transactional
     public void deleteUser(UUID id) {
 
+        repository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
+
         repository.deleteById(id);
 
     }
@@ -46,7 +49,8 @@ public class UsersService {
 
     public Users getUser(UUID id) {
 
-        return repository.findById(id).orElseThrow();
+        return repository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
+
     }
 
 
