@@ -39,7 +39,7 @@ public class Users {
     @CreationTimestamp
     @PastOrPresent(message = "The registration date cannot be a future date")
     @NotNull(message = "Registration date is required")
-    private LocalDate registrationDate;
+    private LocalDate registrationDate = LocalDate.now();
 
     @NotBlank(message = "Phone is required")
     @Length(min = 10, max = 15)
