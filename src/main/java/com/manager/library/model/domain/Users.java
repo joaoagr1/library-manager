@@ -10,6 +10,7 @@ import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.UUID;
@@ -35,6 +36,7 @@ public class Users {
     @Column(unique = true)
     private String email;
 
+    @CreationTimestamp
     @PastOrPresent(message = "The registration date cannot be a future date")
     @NotNull(message = "Registration date is required")
     private LocalDate registrationDate;
@@ -42,5 +44,7 @@ public class Users {
     @NotBlank(message = "Phone is required")
     @Length(min = 10, max = 15)
     private String phone;
+
+
 
 }

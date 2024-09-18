@@ -35,7 +35,7 @@ public class Loan {
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
-    @PastOrPresent
+    @PastOrPresent(message = "Loan date must be a past or present date")
     @NotNull(message = "Loan date is required")
     private LocalDate loanDate;
 
@@ -45,6 +45,6 @@ public class Loan {
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Status is required")
-    private LoanStatus status;
+    private LoanStatus status = LoanStatus.ACTIVE;;
 
 }
