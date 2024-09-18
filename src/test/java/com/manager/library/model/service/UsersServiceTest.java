@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
 import java.util.UUID;
 
 public class UsersServiceTest {
@@ -58,12 +59,109 @@ public class UsersServiceTest {
 
         assertNotNull(createdUser, "The created user should not be null");
 
-
-        assertEquals(userRequestDTO.name(), createdUser.getName(), "The created user name should be the same as the request");
-        assertEquals(userRequestDTO.email(), createdUser.getEmail(), "The created user email should be the same as the request");
-        assertEquals(userRequestDTO.phone(), createdUser.getPhone(), "The created user phone should be the same as the request");
+        assertEquals(userRequestDTO.name(), createdUser.getName(),
+                "The created user name should be the same as the request");
+        assertEquals(userRequestDTO.email(), createdUser.getEmail(),
+                "The created user email should be the same as the request");
+        assertEquals(userRequestDTO.phone(), createdUser.getPhone(),
+                "The created user phone should be the same as the request");
 
 
         verify(repository, times(1)).save(any(Users.class));
+
     }
+
+
+    @Test
+    @DisplayName("Should update a user")
+    void shouldUpdateAUser() {
+
+        when(repository.findById(userId)).thenReturn(java.util.Optional.of(user));
+        when(repository.save(any(Users.class))).thenReturn(user);
+
+        Users updatedUser = usersService.updateUser(userRequestDTO, userId);
+
+        assertNotNull(updatedUser, "The updated user should not be null");
+
+        assertEquals(userRequestDTO.name(), updatedUser.getName(),
+                "The updated user name should be the same as the request");
+        assertEquals(userRequestDTO.email(), updatedUser.getEmail(),
+                "The updated user email should be the same as the request");
+        assertEquals(userRequestDTO.phone(), updatedUser.getPhone(),
+                "The updated user phone should be the same as the request");
+
+        verify(repository, times(1)).findById(userId);
+        verify(repository, times(1)).save(any(Users.class));
+    }
+
+
+    @Test
+    @DisplayName("Should delete a user")
+    void shouldDeleteAUser() {
+
+        when(repository.findById(userId)).thenReturn(java.util.Optional.of(user));
+
+        usersService.deleteUser(userId);
+
+        verify(repository, times(1)).findById(userId);
+        verify(repository, times(1)).deleteById(userId);
+    }
+
+
+
+    @Test
+    @DisplayName("Should get a user")
+    void shouldGetAUser() {
+
+        when(repository.findById(userId)).thenReturn(java.util.Optional.of(user));
+
+        Users foundUser = usersService.getUser(userId);
+
+        assertNotNull(foundUser, "The found user should not be null");
+
+        assertEquals(user.getName(), foundUser.getName(),
+                "The found user name should be the same as the request");
+        assertEquals(user.getEmail(), foundUser.getEmail(),
+                "The found user email should be the same as the request");
+        assertEquals(user.getPhone(), foundUser.getPhone(),
+                "The found user phone should be the same as the request");
+
+        verify(repository, times(1)).findById(userId);
+    }
+
+
+    @Test
+    @DisplayName("Should get all users")
+    void shouldGetAllUsers() {
+        List<Users> userList = List.of(Users.builder()
+                        .id(UUID.randomUUID())
+                            .name("User1")
+                                .email("user1@example.com")
+                                    .phone("12345")
+                                        .build(),
+                Users.builder()
+                        .id(UUID.randomUUID())
+                            .name("User2")
+                                .email("user2@example.com")
+                                    .phone("67890").build()
+        );
+
+        when(repository.findAll()).thenReturn(userList);
+
+        List<Users> allUsers = usersService.getAllUsers();
+
+        assertNotNull(allUsers, "The list of users should not be null");
+        assertEquals(2, allUsers.size(), "The list should contain exactly 2 users");
+
+        assertEquals("User1", allUsers.get(0).getName());
+        assertEquals("user1@example.com", allUsers.get(0).getEmail());
+        assertEquals("User2", allUsers.get(1).getName());
+        assertEquals("user2@example.com", allUsers.get(1).getEmail());
+
+        verify(repository, times(1)).findAll();
+    }
+
+
+
+
 }
