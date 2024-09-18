@@ -16,19 +16,19 @@
         <column name="id" type="UUID">
             <constraints primaryKey="true" nullable="false"/>
         </column>
-        <column name="titulo" type="VARCHAR(50)">
+        <column name="title" type="VARCHAR(50)">
             <constraints nullable="false"/>
         </column>
-        <column name="autor" type="VARCHAR(50)">
+        <column name="author" type="VARCHAR(50)">
             <constraints nullable="false"/>
         </column>
         <column name="isbn" type="VARCHAR(13)">
             <constraints nullable="false" unique="true"/>
         </column>
-        <column name="dataPublicacao" type="DATE">
+        <column name="publication_date" type="DATE">
             <constraints nullable="false"/>
         </column>
-        <column name="categoria" type="VARCHAR(50)">
+        <column name="category" type="VARCHAR(50)">
             <constraints nullable="false"/>
         </column>
     </createTable>
