@@ -2,7 +2,9 @@ package com.manager.library.model.adapter;
 
 import com.manager.library.model.domain.Users;
 import com.manager.library.model.dtos.UserRequestDTO;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserAdapter {
 
     public static Users toEntity(UserRequestDTO dto) {

@@ -42,6 +42,6 @@ public class Book {
     private LocalDate publicationDate   ;
 
     @NotNull(message = "Category is required")
-    @Enumerated(EnumType.STRING) // Persist enum as a string in the database
+    @Enumerated(EnumType.STRING)
     private Category category;
 }
