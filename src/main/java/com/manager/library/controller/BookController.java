@@ -65,4 +65,9 @@ public class BookController {
 
     }
 
+    @PostMapping("/google-api")
+    public Book addBook(@RequestParam String isbn) {
+        return bookService.addBookByIsbn(isbn);
+    }
+
 }
