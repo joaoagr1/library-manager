@@ -59,21 +59,10 @@ public class BookService {
     }
 
     public Book addBookByIsbn(String isbn) {
+
         GoogleBooksResponse response = googleBooksClient.getBookByIsbn("isbn:" + isbn);
-        if (response.getTotalItems() > 0) {
-            GoogleBooksResponse.Item item = response.getItems().get(0);
-            GoogleBooksResponse.Item.VolumeInfo volumeInfo = item.getVolumeInfo();
 
-            Book book = new Book();
-            book.setTitle(volumeInfo.getTitle());
-            book.setAuthor(volumeInfo.getAuthors().get(0));
-            book.setIsbn(isbn);
-            book.setPublicationDate(Year.parse(volumeInfo.getPublishedDate()));
-            book.setCategory(Category.valueOf(volumeInfo.getCategories().get(0).toUpperCase()));
+        return bookRepository.save(BookAdapter.googleApiToBook(response));
 
-            return bookRepository.save(book);
-        } else {
-            throw new RuntimeException("Book not found");
-        }
     }
 }
