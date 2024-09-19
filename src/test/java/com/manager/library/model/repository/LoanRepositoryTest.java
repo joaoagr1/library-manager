@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -94,7 +95,7 @@ class LoanRepositoryTest {
                         .author("Robert C. Martin")
                         .isbn("9780132350884")
                         .category(Category.BIOGRAPHY)
-                        .publicationDate(LocalDate.of(1954, 7, 29))
+                        .publicationDate(Year.of(2019))
                 .build())
                 .user(Users.builder()
                         .name("João Rolo")
@@ -113,7 +114,8 @@ class LoanRepositoryTest {
                         .author("Tolkien")
                         .isbn("00000000000").
                         category(Category.ART)
-                        .publicationDate(LocalDate.of(1954, 7, 29))
+                        .publicationDate(Year.of(
+                                Integer.parseInt("2019")))
                         .build())
                 .user(Users.builder()
                         .name("Marcelo da Silva")

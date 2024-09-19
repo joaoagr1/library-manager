@@ -18,6 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
+import java.time.Year;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -50,7 +51,7 @@ public class BookControllerTest {
     @Test
     public void testCreateBook_Success() throws Exception {
 
-        BookRequestDTO requestDTO = new BookRequestDTO("Test Title", "Test Author", "1234567890", LocalDate.now().minusYears(1), Category.FICTION);
+        BookRequestDTO requestDTO = new BookRequestDTO("Test Title", "Test Author", "1234567890", Year.of(2019), Category.FICTION);
         Book newBook = Book.builder()
                 .title(requestDTO.title())
                 .author(requestDTO.author())
@@ -69,8 +70,8 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$.title").value(requestDTO.title()))
                 .andExpect(jsonPath("$.author").value(requestDTO.author()))
                 .andExpect(jsonPath("$.isbn").value(requestDTO.isbn()))
-                .andExpect(jsonPath("$.publicationDate").isNotEmpty()) // Check for non-empty date
-                .andExpect(jsonPath("$.category").value(requestDTO.category().toString())); // Convert category to string
+                .andExpect(jsonPath("$.publicationDate").isNotEmpty())
+                .andExpect(jsonPath("$.category").value(requestDTO.category().toString()));
     }
 
 
