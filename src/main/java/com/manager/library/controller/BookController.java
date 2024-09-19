@@ -2,8 +2,10 @@ package com.manager.library.controller;
 
 import com.manager.library.model.domain.Book;
 import com.manager.library.model.dtos.BookRequestDTO;
+import com.manager.library.model.enums.Category;
 import com.manager.library.model.service.BookService;
 
+import com.manager.library.model.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -11,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -20,6 +21,9 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    private RecommendationService recommendationService;
 
     @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody BookRequestDTO bookRequestDTO) {
@@ -53,4 +57,12 @@ public class BookController {
         Page<Book> bookPage = bookService.listBooks(page, size);
         return ResponseEntity.ok(bookPage.getContent());
     }
+
+    @GetMapping("/category/{userId}")
+    public ResponseEntity<List<Book>> getRecommendedBooks(@PathVariable UUID userId){
+
+        return ResponseEntity.ok(recommendationService.getRecommendedBooks(userId));
+
+    }
+
 }
