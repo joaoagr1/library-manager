@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
@@ -67,7 +68,7 @@ public class BookService {
             book.setTitle(volumeInfo.getTitle());
             book.setAuthor(volumeInfo.getAuthors().get(0));
             book.setIsbn(isbn);
-            book.setPublicationDate(LocalDate.parse(volumeInfo.getPublishedDate(), DateTimeFormatter.ofPattern("yyyy")));
+            book.setPublicationDate(Year.parse(volumeInfo.getPublishedDate()));
             book.setCategory(Category.valueOf(volumeInfo.getCategories().get(0).toUpperCase()));
 
             return bookRepository.save(book);

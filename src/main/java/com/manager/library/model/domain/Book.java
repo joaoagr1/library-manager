@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.UUID;
 
 @Data
@@ -41,7 +42,7 @@ public class Book {
 
     @Past(message = "The publication date cannot be a future date")
     @NotNull(message = "Publication date is required")
-    private LocalDate publicationDate   ;
+    private Year publicationDate   ;
 
     @NotNull(message = "Category is required")
     @Enumerated(EnumType.STRING)

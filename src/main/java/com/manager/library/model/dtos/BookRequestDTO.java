@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
 import java.time.LocalDate;
+import java.time.Year;
 
 @Builder
 public record BookRequestDTO(
@@ -28,7 +29,7 @@ public record BookRequestDTO(
 
         @Past(message = "The publication date cannot be a future date")
         @NotNull(message = "Publication date is required")
-        LocalDate publicationDate,
+        Year publicationDate,
 
         @NotNull(message = "Category is required")
         @Enumerated(EnumType.STRING)

@@ -4,6 +4,8 @@ import com.manager.library.model.domain.Book;
 import com.manager.library.model.dtos.BookRequestDTO;
 import org.springframework.stereotype.Component;
 
+import java.time.Year;
+
 @Component
 public class BookAdapter {
 
