@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -66,9 +67,7 @@ class BookRepositoryTest {
                 .author("Robert C. Martin")
                 .isbn("9780132350884")
                 .category(Category.ART)
-                .publicationDate(LocalDate.of(2008,
-                                                8,
-                                            11))
+                .publicationDate(Year.of(2019))
                 .build();
 
         bookRepository.save(book);

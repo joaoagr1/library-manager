@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -40,9 +41,9 @@ class BookServiceTest {
 
     @BeforeEach
     void setUp() {
-        book = Book.builder().id(UUID.randomUUID()).title("The Lord of the Rings").author("J.R.R. Tolkien").isbn("978-3-16-148410-0").publicationDate(LocalDate.of(1954, 7, 29)).category(Category.BIOGRAPHY).build();
+        book = Book.builder().id(UUID.randomUUID()).title("The Lord of the Rings").author("J.R.R. Tolkien").isbn("978-3-16-148410-0").publicationDate(Year.of(2019)).category(Category.BIOGRAPHY).build();
 
-        bookRequestDTO = new BookRequestDTO("The Lord of the Rings", "J.R.R. Tolkien", "978-3-16-148410-0", LocalDate.of(1954, 7, 29), Category.BIOGRAPHY);
+        bookRequestDTO = new BookRequestDTO("The Lord of the Rings", "J.R.R. Tolkien", "978-3-16-148410-0", Year.of(2019), Category.BIOGRAPHY);
     }
 
     @Test

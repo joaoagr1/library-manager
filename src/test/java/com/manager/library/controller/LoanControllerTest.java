@@ -24,6 +24,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.UUID;
 
 import static org.mockito.Mockito.when;
@@ -77,7 +78,7 @@ class LoanControllerTest {
                 .title("Test Book")
                 .author("Test Author")
                 .isbn("1234567890")
-                .publicationDate(LocalDate.now().minusYears(1))
+                .publicationDate(Year.of(2019))
                 .category(Category.CLASSICS)
                 .build();
 
