@@ -3,34 +3,25 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UsersComponent } from './users/users.component';
+import { UserComponent } from './users/users.component';
 import { LoansComponent } from './loans/loans.component';
-import { BooksComponent } from './books/books.component';
-import { UserListComponent } from './users/user-list/user-list.component';
-import { UserFormComponent } from './users/user-form/user-form.component';
-import { BookListComponent } from './books/book-list/book-list.component';
-import { BookFormComponent } from './books/book-form/book-form.component';
-import { LoanListComponent } from './loans/loan-list/loan-list.component';
-import { LoanFormComponent } from './loans/loan-form/loan-form.component';
+import { RouterModule } from '@angular/router';  // Importando RouterModule
+import { UsersService } from './services/users-service';  // Importando o serviço
+import { HttpClientModule } from '@angular/common/http';  // Importar HttpClientModule para usar HttpClient
 
 @NgModule({
   declarations: [
     AppComponent,
-    UsersComponent,
-    LoansComponent,
-    BooksComponent,
-    UserListComponent,
-    UserFormComponent,
-    BookListComponent,
-    BookFormComponent,
-    LoanListComponent,
-    LoanFormComponent
+    UserComponent,
+    LoansComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule,
+    HttpClientModule   // Importando HttpClientModule
   ],
-  providers: [],
+  providers: [UsersService],  // Adicionando UsersService aos providers
   bootstrap: [AppComponent]
 })
 export class AppModule { }
