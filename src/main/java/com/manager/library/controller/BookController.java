@@ -59,9 +59,9 @@ public class BookController {
     }
 
     @GetMapping("/category/{userId}")
-    public ResponseEntity<List<Category>> getRecommendedBooks(@PathVariable UUID userId){
+    public ResponseEntity<List<Book>> getRecommendedBooks(@PathVariable UUID userId){
 
-        return ResponseEntity.ok(recommendationService.getRecommendationList(userId));
+        return ResponseEntity.ok(recommendationService.getRecommendedBooks(userId));
 
     }
 
