@@ -1,14 +1,9 @@
-table {
-  width: 80%; /* Ajuste a largura conforme necessário */
-  max-width: 800px; /* Define uma largura máxima */
-  margin: 0 auto; /* Centraliza a tabela */
-  border-collapse: collapse; /* Remove espaços entre as células */
-}
 
-th, td {
-  padding: 8px;
-  text-align: left;
-  border: 1px solid #ddd; /* Adiciona bordas às células */
+
+#users-table {
+  max-width: 85%; 
+  min-width: 800px; 
+  margin: 0 auto; 
 }
 
 .mat-elevation-z8 {
