@@ -3,6 +3,8 @@ package com.manager.library.model.service;
 import com.manager.library.model.adapter.LoanAdapter;
 import com.manager.library.model.domain.Loan;
 import com.manager.library.model.dtos.LoanRequestDTO;
+import com.manager.library.model.enums.LoanStatus;
+import com.manager.library.model.exceptions.BookNotAvailableException;
 import com.manager.library.model.exceptions.EntityNotFoundException;
 import com.manager.library.model.repository.BookRepository;
 import com.manager.library.model.repository.LoanRepository;
@@ -25,6 +27,10 @@ public class LoanService {
     private LoanAdapter loanAdapter;
 
     public Loan createLoan(LoanRequestDTO loanRequestDTO) {
+
+        if (hasActiveLoanForBook(loanRequestDTO.bookId())) {
+            throw new BookNotAvailableException("There is already an active loan for this book");
+        }
 
         Loan loan = loanAdapter.toEntity(loanRequestDTO);
         return loanRepository.save(loan);
@@ -62,6 +68,10 @@ public class LoanService {
         loanRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Loan not found"));
         loanRepository.deleteById(id);
 
+    }
+
+    public boolean hasActiveLoanForBook(UUID bookId) {
+        return loanRepository.existsByBookIdAndStatus(bookId, LoanStatus.ACTIVE);
     }
 
 
