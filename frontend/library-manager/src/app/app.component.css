@@ -1,3 +1,7 @@
-table{
-    width: 45%;
+mat-toolbar {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

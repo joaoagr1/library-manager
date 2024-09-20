@@ -1,8 +1,6 @@
-
-<!-- Formulário de Criação de Usuário -->
-<form (ngSubmit)="createUser()">
+<form id="user-form" (ngSubmit)="createUser()">
   <div class="form-group">
-    <label for="name">Nome</label>
+    <label for="name">Name</label>
     <input type="text" id="name" [(ngModel)]="newUser.name" name="name" class="form-control" required>
   </div>
   <div class="form-group">
@@ -10,14 +8,10 @@
     <input type="email" id="email" [(ngModel)]="newUser.email" name="email" class="form-control" required>
   </div>
   <div class="form-group">
-    <label for="registrationDate">Data de Registro</label>
-    <input type="date" id="registrationDate" [(ngModel)]="newUser.registrationDate" name="registrationDate" class="form-control" required>
-  </div>
-  <div class="form-group">
-    <label for="phone">Telefone</label>
+    <label for="phone">Phone</label>
     <input type="text" id="phone" [(ngModel)]="newUser.phone" name="phone" class="form-control" required>
   </div>
-  <button type="submit" class="btn btn-primary">Criar Usuário</button>
+  <button type="submit" class="btn btn-primary">Create</button>
 </form>
 
 <table id="users-table" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -28,7 +22,7 @@
   </ng-container>
 
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Nome</th>
+    <th mat-header-cell *matHeaderCellDef>Name</th>
     <td mat-cell *matCellDef="let user">{{user.name}}</td>
   </ng-container>
 
@@ -38,19 +32,19 @@
   </ng-container>
 
   <ng-container matColumnDef="registrationDate">
-    <th mat-header-cell *matHeaderCellDef>Data de Registro</th>
+    <th mat-header-cell *matHeaderCellDef>Created At</th>
     <td mat-cell *matCellDef="let user">{{user.registrationDate}}</td>
   </ng-container>
 
   <ng-container matColumnDef="phone">
-    <th mat-header-cell *matHeaderCellDef>Telefone</th>
+    <th mat-header-cell *matHeaderCellDef>Phone</th>
     <td mat-cell *matCellDef="let user">{{user.phone}}</td>
   </ng-container>
 
   <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef>Ações</th>
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let user">
-      <button class="btn btn-danger" (click)="deleteUser(user.id)">Excluir</button>
+      <button class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button>
     </td>
   </ng-container>
 

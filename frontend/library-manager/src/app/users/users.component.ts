@@ -28,13 +28,13 @@ export class UserComponent implements OnInit {
 
   deleteUser(id: number): void {
     this.usersService.deleteUser(id).subscribe(() => {
-      this.loadUsers(); // Recarrega a lista de usuários após a exclusão
+      this.loadUsers(); 
     });
   }
 
   createUser(): void {
     this.usersService.createUser(this.newUser).subscribe((user: User) => {
-      this.loadUsers(); // Recarrega a lista de usuários após a criação
+      this.loadUsers(); 
       this.newUser = { id: 0, name: '', email: '', phone: '' }; // Reseta o formulário
     });
   }

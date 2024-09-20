@@ -10,8 +10,8 @@ const routes: Routes = [
   { path: 'users', component: UserComponent },
   { path: 'books', component: BooksComponent },
   { path: 'loans', component: LoansComponent },
-  { path: '', redirectTo: '/users', pathMatch: 'full' },  // Rota padrão
-  { path: '**', redirectTo: '/users' }  // Redireciona qualquer rota inválida
+  { path: '', redirectTo: '/users', pathMatch: 'full' },  
+  { path: '**', redirectTo: '/users' }  
 ];
 
 @NgModule({
