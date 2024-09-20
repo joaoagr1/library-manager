@@ -1,5 +1,5 @@
 
-
+<!-- Formulário de Criação de Usuário -->
 <form (ngSubmit)="createUser()">
   <div class="form-group">
     <label for="name">Nome</label>
@@ -20,7 +20,7 @@
   <button type="submit" class="btn btn-primary">Criar Usuário</button>
 </form>
 
-<table id="users-table" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef>ID</th>

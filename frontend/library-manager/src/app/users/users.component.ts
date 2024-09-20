@@ -12,7 +12,7 @@ export class UserComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'email', 'registrationDate', 'phone', 'actions'];
   dataSource = new MatTableDataSource<User>();
-  newUser: User = { id: 0, name: '', email: '', phone: '' }; 
+  newUser: User = { id: 0, name: '', email: '', phone: '' }; // Não precisa de registrationDate
 
   constructor(private usersService: UsersService) { }
 
@@ -28,14 +28,14 @@ export class UserComponent implements OnInit {
 
   deleteUser(id: number): void {
     this.usersService.deleteUser(id).subscribe(() => {
-      this.loadUsers(); 
+      this.loadUsers(); // Recarrega a lista de usuários após a exclusão
     });
   }
 
   createUser(): void {
     this.usersService.createUser(this.newUser).subscribe((user: User) => {
-      this.loadUsers(); 
-      this.newUser = { id: 0, name: '', email: '', phone: '' };
+      this.loadUsers(); // Recarrega a lista de usuários após a criação
+      this.newUser = { id: 0, name: '', email: '', phone: '' }; // Reseta o formulário
     });
   }
 }
