@@ -27,5 +27,7 @@ public enum Category {
     GRAPHIC_NOVELS,
     HOBBIES,
     SCIENCE_FICTION,
-    COMPUTERS
+    COMPUTERS,
+    BIBLES,
+
 }

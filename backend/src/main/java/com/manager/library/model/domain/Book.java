@@ -28,7 +28,7 @@ public class Book {
     private UUID id;
 
     @NotBlank(message = "Title is required")
-    @Size(min = 2, max = 50, message = "Title must be between 2 and 50 characters")
+    @Size(min = 2, max = 100, message = "Title must be between 2 and 100 characters")
     private String title;
 
     @NotBlank(message = "Author is required")
@@ -42,7 +42,7 @@ public class Book {
 
     @Past(message = "The publication date cannot be a future date")
     @NotNull(message = "Publication date is required")
-    private Year publicationDate   ;
+    private Year publicationDate  ;
 
     @NotNull(message = "Category is required")
     @Enumerated(EnumType.STRING)

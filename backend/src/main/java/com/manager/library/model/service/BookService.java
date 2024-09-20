@@ -58,9 +58,9 @@ public class BookService {
         return bookRepository.findAll(pageable);
     }
 
-    public Book addBookByIsbn(String isbn) {
+    public Book addBookByTitle(String title) {
 
-        GoogleBooksResponse response = googleBooksClient.getBookByIsbn("isbn:" + isbn);
+        GoogleBooksResponse response = googleBooksClient.getBookByIsbn("intitle:" + title);
 
         return bookRepository.save(BookAdapter.googleApiToBook(response));
 
