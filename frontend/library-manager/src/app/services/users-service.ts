@@ -8,7 +8,7 @@ import { User } from '../models/users.model';
 })
 export class UsersService {
 
-  private apiUrl = 'api/library/users'; 
+  private apiUrl = '/api/library/users'; // Use o caminho do proxy
 
   constructor(private http: HttpClient) { }
 
@@ -18,5 +18,9 @@ export class UsersService {
 
   deleteUser(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  createUser(user: User): Observable<User> {
+    return this.http.post<User>(this.apiUrl, user);
   }
 }

@@ -3,8 +3,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { User } from '../models/users.model';
 import { UsersService } from '../services/users-service';
 
-
-
 @Component({
   selector: 'app-user',
   templateUrl: './users.component.html',
@@ -14,6 +12,7 @@ export class UserComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'email', 'registrationDate', 'phone', 'actions'];
   dataSource = new MatTableDataSource<User>();
+  newUser: User = { id: 0, name: '', email: '', phone: '' }; // Não precisa de registrationDate
 
   constructor(private usersService: UsersService) { }
 
@@ -29,7 +28,14 @@ export class UserComponent implements OnInit {
 
   deleteUser(id: number): void {
     this.usersService.deleteUser(id).subscribe(() => {
-      this.loadUsers(); 
+      this.loadUsers(); // Recarrega a lista de usuários após a exclusão
+    });
+  }
+
+  createUser(): void {
+    this.usersService.createUser(this.newUser).subscribe((user: User) => {
+      this.loadUsers(); // Recarrega a lista de usuários após a criação
+      this.newUser = { id: 0, name: '', email: '', phone: '' }; // Reseta o formulário
     });
   }
 }

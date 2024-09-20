@@ -1,4 +1,25 @@
-<h2>Lista de Usuários</h2>
+
+<!-- Formulário de Criação de Usuário -->
+<form (ngSubmit)="createUser()">
+  <div class="form-group">
+    <label for="name">Nome</label>
+    <input type="text" id="name" [(ngModel)]="newUser.name" name="name" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" id="email" [(ngModel)]="newUser.email" name="email" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="registrationDate">Data de Registro</label>
+    <input type="date" id="registrationDate" [(ngModel)]="newUser.registrationDate" name="registrationDate" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="phone">Telefone</label>
+    <input type="text" id="phone" [(ngModel)]="newUser.phone" name="phone" class="form-control" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Criar Usuário</button>
+</form>
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <ng-container matColumnDef="id">

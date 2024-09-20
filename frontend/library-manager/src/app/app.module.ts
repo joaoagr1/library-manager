@@ -7,8 +7,10 @@ import { LoansComponent } from './loans/loans.component';
 import { RouterModule } from '@angular/router';
 import { UsersService } from './services/users-service';
 import { HttpClientModule } from '@angular/common/http';
-import { MatToolbarModule } from '@angular/material/toolbar'; // Importando MatToolbarModule
-import { MatTableModule } from '@angular/material/table'; // Importando MatTableModule
+import { MatToolbarModule } from '@angular/material/toolbar'; 
+import { MatTableModule } from '@angular/material/table'; 
+import { FormsModule } from '@angular/forms'; 
+
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { MatTableModule } from '@angular/material/table'; // Importando MatTable
     HttpClientModule,
     RouterModule,
     MatToolbarModule,
-    MatTableModule // Adicionando MatTableModule aos imports
+    MatTableModule,
+    FormsModule
   ],
   providers: [
     UsersService
