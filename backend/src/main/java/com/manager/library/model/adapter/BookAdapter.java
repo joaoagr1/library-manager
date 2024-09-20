@@ -40,14 +40,14 @@ public class BookAdapter {
         String publishedDateStr = volumeInfo.getPublishedDate();
         try {
 
-            String yearStr = publishedDateStr.substring(0, 4); // Sempre pegar os 4 primeiros caracteres
+            String yearStr = publishedDateStr.substring(0, 4);
             Year publishedYear = Year.parse(yearStr);
 
 
             book.setPublicationDate(publishedYear);
 
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Data de publicação inválida: " + publishedDateStr, e);
+            throw new IllegalArgumentException("Invalid Date: " + publishedDateStr, e);
         }
 
         return book;

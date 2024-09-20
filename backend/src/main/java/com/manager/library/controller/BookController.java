@@ -2,6 +2,7 @@ package com.manager.library.controller;
 
 import com.manager.library.model.domain.Book;
 import com.manager.library.model.dtos.BookRequestDTO;
+import com.manager.library.model.dtos.GoogleBooksResponse;
 import com.manager.library.model.enums.Category;
 import com.manager.library.model.service.BookService;
 
@@ -66,8 +67,12 @@ public class BookController {
     }
 
     @PostMapping("/google-api")
-    public Book addBook(@RequestParam String title) {
-        return bookService.addBookByTitle(title);
+    public ResponseEntity<Book> addBook(@RequestParam String title) {
+        return ResponseEntity.ok(bookService.addBookByTitle(title));
     }
 
+    @GetMapping("/google-api")
+    public ResponseEntity<Object> getBookInformation(@RequestParam String title) {
+        return ResponseEntity.ok(bookService.getInformationByTitleFromGoogleApi(title));
+    }
 }

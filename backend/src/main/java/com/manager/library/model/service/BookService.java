@@ -28,6 +28,7 @@ public class BookService {
     private GoogleBooksClient googleBooksClient;
 
     public Book createBook(BookRequestDTO bookRequestDTO) {
+
         bookRepository.findByIsbn(bookRequestDTO.isbn()).ifPresent(book -> {
             throw new IllegalArgumentException("Book with ISBN already exists");
         });
@@ -37,10 +38,14 @@ public class BookService {
     }
 
     public Book getBookById(UUID id) {
+
         return bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Book not found"));
+
     }
 
+
     public Book updateBook(UUID id, BookRequestDTO bookRequestDTO) {
+
         bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Book not found"));
 
         Book book = BookAdapter.toEntity(bookRequestDTO);
@@ -49,13 +54,17 @@ public class BookService {
     }
 
     public void deleteBook(UUID id) {
+
         bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Book not found"));
         bookRepository.deleteById(id);
+
     }
 
     public Page<Book> listBooks(int page, int size) {
+
         Pageable pageable = PageRequest.of(page, size);
         return bookRepository.findAll(pageable);
+
     }
 
     public Book addBookByTitle(String title) {
@@ -65,4 +74,12 @@ public class BookService {
         return bookRepository.save(BookAdapter.googleApiToBook(response));
 
     }
+
+    public Object getInformationByTitleFromGoogleApi(String title) {
+        GoogleBooksResponse response = googleBooksClient.getBookByIsbn("intitle:" + title);
+        response.getItems().get(0);
+        return response.getItems().get(0);
+    }
+
+
 }
