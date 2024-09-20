@@ -8,11 +8,15 @@ import { User } from '../models/users.model';
 })
 export class UsersService {
 
-  private apiUrl = 'api/library/users'; // Substitua pela URL da sua API
+  private apiUrl = 'api/library/users'; 
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.apiUrl);
+  }
+
+  deleteUser(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
