@@ -4,8 +4,8 @@ import com.manager.library.client.GoogleBooksClient;
 import com.manager.library.model.adapter.BookAdapter;
 import com.manager.library.model.domain.Book;
 import com.manager.library.model.dtos.BookRequestDTO;
-import com.manager.library.model.dtos.GoogleBooksResponse;
-import com.manager.library.model.enums.Category;
+import com.manager.library.model.dtos.GoogleBooksDetailResponseDTO;
+import com.manager.library.model.dtos.GoogleBooksResponseDTO;
 import com.manager.library.model.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,9 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.Year;
-import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Service
@@ -51,6 +48,7 @@ public class BookService {
         Book book = BookAdapter.toEntity(bookRequestDTO);
         book.setId(id);
         return bookRepository.save(book);
+
     }
 
     public void deleteBook(UUID id) {
@@ -69,17 +67,19 @@ public class BookService {
 
     public Book addBookByTitle(String title) {
 
-        GoogleBooksResponse response = googleBooksClient.getBookByIsbn("intitle:" + title);
+        GoogleBooksResponseDTO response = googleBooksClient.getBookByIsbn("intitle:" + title);
+
+        if(response == null){}
 
         return bookRepository.save(BookAdapter.googleApiToBook(response));
 
     }
 
-    public Object getInformationByTitleFromGoogleApi(String title) {
-        GoogleBooksResponse response = googleBooksClient.getBookByIsbn("intitle:" + title);
-        response.getItems().get(0);
-        return response.getItems().get(0);
+    public GoogleBooksDetailResponseDTO getInformationByTitleFromGoogleApi(String title) {
+        GoogleBooksResponseDTO response = googleBooksClient.getBookByIsbn("intitle:" + title);
+        return BookAdapter.from(response.getItems().get(0));
     }
 
-
 }
+
+

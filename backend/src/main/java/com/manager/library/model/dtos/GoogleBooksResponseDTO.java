@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class GoogleBooksResponse {
+public class GoogleBooksResponseDTO {
     private String kind;
     private int totalItems;
     private List<Item> items;

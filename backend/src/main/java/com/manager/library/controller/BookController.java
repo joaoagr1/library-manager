@@ -2,8 +2,7 @@ package com.manager.library.controller;
 
 import com.manager.library.model.domain.Book;
 import com.manager.library.model.dtos.BookRequestDTO;
-import com.manager.library.model.dtos.GoogleBooksResponse;
-import com.manager.library.model.enums.Category;
+import com.manager.library.model.dtos.GoogleBooksDetailResponseDTO;
 import com.manager.library.model.service.BookService;
 
 import com.manager.library.model.service.RecommendationService;
@@ -72,7 +71,7 @@ public class BookController {
     }
 
     @GetMapping("/google-api")
-    public ResponseEntity<Object> getBookInformation(@RequestParam String title) {
+    public ResponseEntity<GoogleBooksDetailResponseDTO> getBookInformation(@RequestParam String title) {
         return ResponseEntity.ok(bookService.getInformationByTitleFromGoogleApi(title));
     }
 }

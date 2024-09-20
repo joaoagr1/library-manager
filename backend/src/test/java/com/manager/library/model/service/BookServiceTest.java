@@ -39,8 +39,12 @@ class BookServiceTest {
     private Book book;
     private BookRequestDTO bookRequestDTO;
 
+    UUID  bookId = UUID.randomUUID();
+
     @BeforeEach
     void setUp() {
+
+
         book = Book.builder().id(UUID.randomUUID()).title("The Lord of the Rings").author("J.R.R. Tolkien").isbn("978-3-16-148410-0").publicationDate(Year.of(2019)).category(Category.BIOGRAPHY).build();
 
         bookRequestDTO = new BookRequestDTO("The Lord of the Rings", "J.R.R. Tolkien", "978-3-16-148410-0", Year.of(2019), Category.BIOGRAPHY);
@@ -110,6 +114,55 @@ class BookServiceTest {
     }
 
 
+    @Test
+    void shouldThrowExceptionWhenBookWithIsbnAlreadyExists() {
+        Book existingBook = new Book();
+        existingBook.setIsbn("1234567890");
+
+        when(bookRepository.findByIsbn(bookRequestDTO.isbn())).thenReturn(Optional.of(existingBook));
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> bookService.createBook(bookRequestDTO)
+        );
+
+        assertEquals("Book with ISBN already exists", exception.getMessage());
+
+        verify(bookRepository, times(1)).findByIsbn(bookRequestDTO.isbn());
+        verify(bookRepository, never()).save(any(Book.class));
+    }
+
+
+    @Test
+    void shouldThrowExceptionWhenBookNotFound() {
+      UUID  bookId = UUID.randomUUID();
+
+        when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> bookService.getBookById(bookId)
+        );
+
+        assertEquals("Book not found", exception.getMessage());
+
+        verify(bookRepository, times(1)).findById(bookId);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenBookToDeleteNotFound() {
+        when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> bookService.deleteBook(bookId)
+        );
+
+        assertEquals("Book not found", exception.getMessage());
+
+        verify(bookRepository, times(1)).findById(bookId);
+        verify(bookRepository, never()).deleteById(bookId);
+    }
 
 }
 
