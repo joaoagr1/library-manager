@@ -1,0 +1,25 @@
+/* users.component.css */
+table {
+    width: 80%; /* Ajuste a largura conforme necessário */
+    max-width: 800px; /* Define uma largura máxima */
+    margin: 0 auto; /* Centraliza a tabela */
+    border-collapse: collapse; /* Remove espaços entre as células */
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd; /* Adiciona bordas às células */
+  }
+  
+  .mat-elevation-z8 {
+    box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+  }
+
+
+.mat-elevation-z8{
+    width: 80%; /* Ajuste a largura conforme necessário */
+    max-width: 800px; /* Define uma largura máxima */
+    margin: 0 auto; /* Centraliza a tabela */
+    border-collapse: collapse; /* Remove espaços entre as células */
+}

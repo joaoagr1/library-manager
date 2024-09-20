@@ -8,20 +8,21 @@ import { RouterModule } from '@angular/router';
 import { UsersService } from './services/users-service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar'; // Importando MatToolbarModule
+import { MatTableModule } from '@angular/material/table'; // Importando MatTableModule
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
-    LoansComponent,
-    
+    LoansComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     RouterModule,
-    MatToolbarModule // Adicionando MatToolbarModule aos imports
+    MatToolbarModule,
+    MatTableModule // Adicionando MatTableModule aos imports
   ],
   providers: [
     UsersService

@@ -1,21 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { User } from '../models/users.model';
 import { UsersService } from '../services/users-service';
+
 
 @Component({
   selector: 'app-user',
-  templateUrl: './users.component.html', // Certifique-se de que o caminho está correto
-  styleUrls: ['./users.component.css'] // Certifique-se de que o caminho está correto
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css']
 })
 export class UserComponent implements OnInit {
 
-  users: any[] = [];
+  displayedColumns: string[] = ['id', 'name', 'email', 'registrationDate', 'phone'];
+  dataSource = new MatTableDataSource<User>();
 
   constructor(private usersService: UsersService) { }
 
   ngOnInit(): void {
-    this.usersService.getUsers().subscribe(data => {
-      console.log("teste"+data);
-      this.users = data;
+    this.usersService.getUsers().subscribe((users: User[]) => {
+      this.dataSource.data = users;
     });
   }
 }
