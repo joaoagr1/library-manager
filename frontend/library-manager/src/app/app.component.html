@@ -1,4 +1,16 @@
+
 <mat-toolbar color="primary">
-    <h1>Library Management System - Elotech</h1>
-  </mat-toolbar>
+  <span>Library Manager</span>
+</mat-toolbar>
+
+<div class="content">
+</div>
+
+<mat-toolbar color="primary" class="bottom-toolbar">
+  <span class="spacer"></span>
+  <button mat-button routerLink="/users">Users</button>
+  <button mat-button routerLink="/books">Books</button>
+  <button mat-button routerLink="/loans">Loans</button>
+  <span class="spacer"></span>
+</mat-toolbar>
   <router-outlet></router-outlet>

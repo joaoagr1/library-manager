@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-
-import { UserComponent } from '../app/users/users.component';
-import { BooksComponent } from '../app/books/books.component';
-import { LoansComponent } from '../app/loans/loans.component';
+import { UserComponent } from './users/users.component';
+import { BooksComponent } from './books/books.component';
+import { LoansComponent } from './loans/loans.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: 'users', component: UserComponent },
   { path: 'books', component: BooksComponent },
   { path: 'loans', component: LoansComponent },
-  { path: '', redirectTo: '/users', pathMatch: 'full' },  
-  { path: '**', redirectTo: '/users' }  
+  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
