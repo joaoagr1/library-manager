@@ -29,6 +29,39 @@ button.btn-danger {
   transition: background-color 0.3s ease;
 }
 
+button.btn-secondary {
+  background-color: #fbff00;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+
+button.btn-success{
+
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+
+}
+
 button.btn-danger:hover {
   background-color: #c82333;
 }
