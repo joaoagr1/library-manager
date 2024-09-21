@@ -30,11 +30,13 @@ public class GoogleBooksDetailResponseDTO {
         private List<String> categories;
 
         public VolumeInfo(String title, List<String> authors, String publishedDate, List<IndustryIdentifier> industryIdentifiers, List<String> categories) {
+
             this.title = title;
             this.authors = authors;
             this.publishedDate = publishedDate;
             this.industryIdentifiers = industryIdentifiers;
             this.categories = categories;
+
         }
 
         public String getTitle() {
@@ -59,12 +61,15 @@ public class GoogleBooksDetailResponseDTO {
     }
 
     public static class IndustryIdentifier {
+
         private String type;
         private String identifier;
 
         public IndustryIdentifier(String type, String identifier) {
+
             this.type = type;
             this.identifier = identifier;
+
         }
 
         public String getType() {

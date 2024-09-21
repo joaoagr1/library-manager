@@ -14,4 +14,5 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     Optional<Book> findByIsbn(String isbn);
 
     Book findFirstByCategory(Category category);
+
 }

@@ -22,9 +22,7 @@ public class GlobalExceptionHandler {
 
         Optional<ConstraintViolation<?>> firstViolation = ex.getConstraintViolations().stream().findFirst();
 
-
         String detailedErrorMessage = firstViolation.map(violation -> violation.getPropertyPath() + ": " + violation.getMessage()).orElse("Unknown validation error");
-
 
         ErrorReponseDTO errorDTO = new ErrorReponseDTO(detailedErrorMessage, HttpStatus.BAD_REQUEST.value());
 
@@ -53,8 +51,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BookNotAvailableException.class)
     public ResponseEntity<ErrorReponseDTO> handleBookNotAvailableException(BookNotAvailableException ex) {
+
         ErrorReponseDTO errorReponseDTO = new ErrorReponseDTO(ex.getMessage(),HttpStatus.BAD_REQUEST.value());
+
         return new ResponseEntity<>(errorReponseDTO, HttpStatus.BAD_REQUEST);
+
     }
 
 }

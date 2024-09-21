@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 @Builder
 public record LoanRequestDTO(
+
         UUID userId,
         UUID bookId,
 

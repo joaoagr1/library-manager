@@ -33,5 +33,6 @@ public record BookRequestDTO(
         @NotNull(message = "Category is required")
         @Enumerated(EnumType.STRING)
         Category category
+
 ) {
 }
