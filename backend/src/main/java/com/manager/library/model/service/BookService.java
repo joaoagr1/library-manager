@@ -69,16 +69,31 @@ public class BookService {
 
         GoogleBooksResponseDTO response = googleBooksClient.getBookByIsbn("intitle:" + title);
 
-        if(response == null){}
+        if(response.getItems().isEmpty()) {
+            throw new IllegalArgumentException("Book not found");
+        }
 
         return bookRepository.save(BookAdapter.googleApiToBook(response));
 
     }
 
     public GoogleBooksDetailResponseDTO getInformationByTitleFromGoogleApi(String title) {
-        GoogleBooksResponseDTO response = googleBooksClient.getBookByIsbn("intitle:" + title);
-        return BookAdapter.from(response.getItems().get(0));
+
+        try {
+
+            GoogleBooksResponseDTO response = googleBooksClient.getBookByIsbn("intitle:" + title);
+
+            return BookAdapter.from(response.getItems().get(0));
+
+        } catch (Exception e) {
+
+            throw new IllegalArgumentException("Book not found");
+
+        }
+
     }
+
+
 
 }
 

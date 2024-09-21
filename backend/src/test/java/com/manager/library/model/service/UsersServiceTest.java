@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.manager.library.model.domain.Users;
 import com.manager.library.model.dtos.UserRequestDTO;
+import com.manager.library.model.exceptions.EntityNotFoundException;
 import com.manager.library.model.repository.UsersRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,6 +37,10 @@ public class UsersServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+
+        MockitoAnnotations.openMocks(this);
+        userId = UUID.randomUUID();
+
 
         userId = UUID.randomUUID();
         user = new Users();
@@ -138,15 +144,15 @@ public class UsersServiceTest {
     void shouldGetAllUsers() {
         List<Users> userList = List.of(Users.builder()
                         .id(UUID.randomUUID())
-                            .name("User1")
-                                .email("user1@example.com")
-                                    .phone("12345")
-                                        .build(),
+                        .name("User1")
+                        .email("user1@example.com")
+                        .phone("12345")
+                        .build(),
                 Users.builder()
                         .id(UUID.randomUUID())
-                            .name("User2")
-                                .email("user2@example.com")
-                                    .phone("67890").build()
+                        .name("User2")
+                        .email("user2@example.com")
+                        .phone("67890").build()
         );
 
         when(repository.findAll()).thenReturn(userList);
@@ -162,6 +168,58 @@ public class UsersServiceTest {
         assertEquals("user2@example.com", allUsers.get(1).getEmail());
 
         verify(repository, times(1)).findAll();
+    }
+
+
+    @Test
+    public void testCreateUser_EmailAlreadyInUse() {
+        when(repository.existsByEmail(userRequestDTO.email())).thenReturn(true);
+
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () -> usersService.createUser(userRequestDTO));
+
+        assertEquals("Email already in use", exception.getMessage());
+    }
+
+    @Test
+    public void testCreateUser_PhoneAlreadyInUse() {
+        when(repository.existsByEmail(userRequestDTO.email())).thenReturn(false);
+        when(repository.existsByPhone(userRequestDTO.phone())).thenReturn(true);
+
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () -> usersService.createUser(userRequestDTO));
+
+        assertEquals("Phone already in use", exception.getMessage());
+    }
+
+    @Test
+    public void testUpdateUser_UserNotFound() {
+        when(repository.findById(userId)).thenReturn(Optional.empty());
+
+        EntityNotFoundException exception =
+                assertThrows(EntityNotFoundException.class, () -> usersService.updateUser(userRequestDTO, userId));
+
+        assertEquals("User not found", exception.getMessage());
+    }
+
+    @Test
+    public void testDeleteUser_UserNotFound() {
+        when(repository.findById(userId)).thenReturn(Optional.empty());
+
+        EntityNotFoundException exception =
+                assertThrows(EntityNotFoundException.class, () -> usersService.deleteUser(userId));
+
+        assertEquals("User not found", exception.getMessage());
+    }
+
+    @Test
+    public void testGetUser_UserNotFound() {
+        when(repository.findById(userId)).thenReturn(Optional.empty());
+
+        EntityNotFoundException exception =
+                assertThrows(EntityNotFoundException.class, () -> usersService.getUser(userId));
+
+        assertEquals("User not found", exception.getMessage());
     }
 
 

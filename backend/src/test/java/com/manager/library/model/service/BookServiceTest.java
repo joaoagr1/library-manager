@@ -1,7 +1,9 @@
 package com.manager.library.model.service;
 
+import com.manager.library.client.GoogleBooksClient;
 import com.manager.library.model.domain.Book;
 import com.manager.library.model.dtos.BookRequestDTO;
+import com.manager.library.model.dtos.GoogleBooksResponseDTO;
 import com.manager.library.model.enums.Category;
 import com.manager.library.model.repository.BookRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +21,8 @@ import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.time.Year;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -32,9 +36,12 @@ class BookServiceTest {
     @Mock
     private BookRepository bookRepository;
 
+    @Mock
+    private GoogleBooksClient googleBooksClient;
+
     @InjectMocks
     private BookService bookService;
-
+    private GoogleBooksResponseDTO googleBooksResponseDTO;
 
     private Book book;
     private BookRequestDTO bookRequestDTO;
@@ -44,6 +51,11 @@ class BookServiceTest {
     @BeforeEach
     void setUp() {
 
+        googleBooksResponseDTO = new GoogleBooksResponseDTO();
+
+
+        GoogleBooksResponseDTO.Item item = new GoogleBooksResponseDTO.Item();
+        googleBooksResponseDTO.setItems(List.of(item));
 
         book = Book.builder().id(UUID.randomUUID()).title("The Lord of the Rings").author("J.R.R. Tolkien").isbn("978-3-16-148410-0").publicationDate(Year.of(2019)).category(Category.BIOGRAPHY).build();
 
@@ -151,6 +163,7 @@ class BookServiceTest {
 
     @Test
     void shouldThrowExceptionWhenBookToDeleteNotFound() {
+
         when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
 
         IllegalArgumentException exception = assertThrows(
@@ -163,6 +176,39 @@ class BookServiceTest {
         verify(bookRepository, times(1)).findById(bookId);
         verify(bookRepository, never()).deleteById(bookId);
     }
+
+
+    @Test
+    public void testAddBookByTitle_BookNotFound() {
+
+        String title = "Nonexistent Book";
+        GoogleBooksResponseDTO response = new GoogleBooksResponseDTO();
+        response.setItems(new ArrayList<>());
+
+
+        when(googleBooksClient.getBookByIsbn("intitle:" + title)).thenReturn(response);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            bookService.addBookByTitle(title);
+        });
+    }
+
+
+    @Test
+    public void testGetInformationByTitleFromGoogleApi_BookNotFound() {
+
+        String title = "Nonexistent Book";
+        GoogleBooksResponseDTO response = new GoogleBooksResponseDTO();
+        response.setItems(new ArrayList<>());
+
+
+        when(googleBooksClient.getBookByIsbn("intitle:" + title)).thenReturn(response);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            bookService.getInformationByTitleFromGoogleApi(title);
+        });
+    }
+
 
 }
 

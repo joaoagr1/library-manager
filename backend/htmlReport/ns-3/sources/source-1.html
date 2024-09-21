@@ -1,0 +1,190 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BookAdapter</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.manager.library.model.adapter</a>
+</div>
+
+<h1>Coverage Summary for Class: BookAdapter (com.manager.library.model.adapter)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BookAdapter</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    40%
+  </span>
+  <span class="absValue">
+    (2/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    23,1%
+  </span>
+  <span class="absValue">
+    (9/39)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.manager.library.model.adapter;
+&nbsp;
+&nbsp;import com.manager.library.model.domain.Book;
+&nbsp;import com.manager.library.model.dtos.BookRequestDTO;
+&nbsp;import com.manager.library.model.dtos.GoogleBooksDetailResponseDTO;
+&nbsp;import com.manager.library.model.dtos.GoogleBooksResponseDTO;
+&nbsp;import com.manager.library.model.enums.Category;
+&nbsp;import org.springframework.stereotype.Component;
+&nbsp;
+&nbsp;import java.time.Year;
+&nbsp;import java.time.format.DateTimeParseException;
+&nbsp;
+&nbsp;@Component
+<b class="fc">&nbsp;public class BookAdapter {</b>
+&nbsp;
+&nbsp;    public static Book  toEntity(BookRequestDTO dto) {
+<b class="pc">&nbsp;        if (dto == null) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        Book book = new Book();</b>
+<b class="fc">&nbsp;        book.setTitle(dto.title());</b>
+<b class="fc">&nbsp;        book.setAuthor(dto.author());</b>
+<b class="fc">&nbsp;        book.setIsbn(dto.isbn());</b>
+<b class="fc">&nbsp;        book.setPublicationDate(dto.publicationDate());</b>
+<b class="fc">&nbsp;        book.setCategory(dto.category());</b>
+<b class="fc">&nbsp;        return book;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static Book googleApiToBook(GoogleBooksResponseDTO dto) {
+<b class="nc">&nbsp;        GoogleBooksResponseDTO.Item item = dto.getItems().get(0);</b>
+<b class="nc">&nbsp;        GoogleBooksResponseDTO.Item.VolumeInfo volumeInfo = item.getVolumeInfo();</b>
+&nbsp;
+<b class="nc">&nbsp;        Book book = new Book();</b>
+<b class="nc">&nbsp;        book.setTitle(volumeInfo.getTitle());</b>
+<b class="nc">&nbsp;        book.setAuthor(volumeInfo.getAuthors().get(0));</b>
+<b class="nc">&nbsp;        book.setIsbn(volumeInfo.getIndustryIdentifiers().get(1).getIdentifier());</b>
+<b class="nc">&nbsp;        book.setCategory(Category.valueOf(volumeInfo.getCategories().get(0).toUpperCase()));</b>
+&nbsp;
+<b class="nc">&nbsp;        String publishedDateStr = volumeInfo.getPublishedDate();</b>
+&nbsp;        try {
+&nbsp;
+<b class="nc">&nbsp;            String yearStr = publishedDateStr.substring(0, 4);</b>
+<b class="nc">&nbsp;            Year publishedYear = Year.parse(yearStr);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;            book.setPublicationDate(publishedYear);</b>
+&nbsp;
+<b class="nc">&nbsp;        } catch (DateTimeParseException e) {</b>
+<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;Invalid Date: &quot; + publishedDateStr, e);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return book;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static GoogleBooksDetailResponseDTO from(GoogleBooksResponseDTO.Item item) {
+<b class="nc">&nbsp;        GoogleBooksResponseDTO.Item.VolumeInfo volumeInfo = item.getVolumeInfo();</b>
+<b class="nc">&nbsp;        GoogleBooksDetailResponseDTO.VolumeInfo dtoVolumeInfo = new GoogleBooksDetailResponseDTO.VolumeInfo(</b>
+<b class="nc">&nbsp;                volumeInfo.getTitle(),</b>
+<b class="nc">&nbsp;                volumeInfo.getAuthors(),</b>
+<b class="nc">&nbsp;                volumeInfo.getPublishedDate(),</b>
+<b class="nc">&nbsp;                volumeInfo.getIndustryIdentifiers().stream()</b>
+<b class="nc">&nbsp;                        .map(industryIdentifier -&gt; new GoogleBooksDetailResponseDTO.IndustryIdentifier(</b>
+<b class="nc">&nbsp;                                industryIdentifier.getType(),</b>
+<b class="nc">&nbsp;                                industryIdentifier.getIdentifier()</b>
+<b class="nc">&nbsp;                        )).toList(),</b>
+<b class="nc">&nbsp;                volumeInfo.getCategories()</b>
+&nbsp;        );
+<b class="nc">&nbsp;        return GoogleBooksDetailResponseDTO.builder()</b>
+<b class="nc">&nbsp;                .id(item.getId())</b>
+<b class="nc">&nbsp;                .volumeInfo(dtoVolumeInfo)</b>
+<b class="nc">&nbsp;                .build();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-09-20 20:59</div>
+</div>
+</body>
+</html>

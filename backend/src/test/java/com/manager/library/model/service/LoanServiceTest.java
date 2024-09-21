@@ -7,6 +7,8 @@ import com.manager.library.model.domain.Loan;
 import com.manager.library.model.domain.Users;
 import com.manager.library.model.dtos.LoanRequestDTO;
 import com.manager.library.model.enums.LoanStatus;
+import com.manager.library.model.exceptions.BookNotAvailableException;
+import com.manager.library.model.exceptions.EntityNotFoundException;
 import com.manager.library.model.repository.LoanRepository;
 import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.BeforeEach;
@@ -137,4 +139,53 @@ class LoanServiceTest {
         verify(loanRepository, times(1)).findById(loanId);
         verify(loanRepository, times(1)).deleteById(loanId);
     }
+
+    @Test
+    public void testCreateLoan_BookNotAvailable() {
+        LoanRequestDTO loanRequestDTO = LoanRequestDTO.builder()
+                .returnDate(LocalDate.of(2024, 9, 28))
+                .build();
+
+        when(loanService.hasActiveLoanForBook(loanRequestDTO.bookId())).thenReturn(true);
+
+        assertThrows(BookNotAvailableException.class, () -> {
+            loanService.createLoan(loanRequestDTO);
+        });
+    }
+
+    @Test
+    public void testGetLoanById_LoanNotFound() {
+        UUID loanId = UUID.randomUUID();
+
+        when(loanRepository.findById(loanId)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> {
+            loanService.getLoanById(loanId);
+        });
+    }
+
+    @Test
+    public void testUpdateLoan_LoanNotFound() {
+        UUID loanId = UUID.randomUUID();
+        LoanRequestDTO loanRequestDTO = LoanRequestDTO.builder()
+                .returnDate(LocalDate.of(2024, 9, 28))
+                .build();
+        when(loanRepository.findById(loanId)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> {
+            loanService.updateLoan(loanId, loanRequestDTO);
+        });
+    }
+
+    @Test
+    public void testDeleteLoan_LoanNotFound() {
+        UUID loanId = UUID.randomUUID();
+
+        when(loanRepository.findById(loanId)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> {
+            loanService.deleteLoan(loanId);
+        });
+    }
+
 }
