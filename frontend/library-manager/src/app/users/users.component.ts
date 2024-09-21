@@ -10,9 +10,9 @@ import { UsersService } from '../services/users-service';
 })
 export class UserComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'email', 'registrationDate', 'phone', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'email', 'phone', 'actions'];
   dataSource = new MatTableDataSource<User>();
-  newUser: User = { id: 0, name: '', email: '', phone: '' }; // Não precisa de registrationDate
+  newUser: User = { name: '', email: '', phone: '' }; // Não precisa de registrationDate
 
   constructor(private usersService: UsersService) { }
 
@@ -35,7 +35,7 @@ export class UserComponent implements OnInit {
   createUser(): void {
     this.usersService.createUser(this.newUser).subscribe((user: User) => {
       this.loadUsers(); 
-      this.newUser = { id: 0, name: '', email: '', phone: '' }; // Reseta o formulário
+      this.newUser = { name: '', email: '', phone: '' }; 
     });
   }
 }

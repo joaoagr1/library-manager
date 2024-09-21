@@ -4,6 +4,8 @@ import com.manager.library.domain.Users;
 import com.manager.library.dtos.UserRequestDTO;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class UserAdapter {
 
@@ -13,6 +15,7 @@ public class UserAdapter {
                 .name(dto.name())
                 .email(dto.email())
                 .phone(dto.phone())
+                .registrationDate(LocalDate.now())
                 .build();
 
     }
