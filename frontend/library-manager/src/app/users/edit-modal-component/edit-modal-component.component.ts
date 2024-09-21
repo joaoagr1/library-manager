@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-edit-user-modal',
+  selector: 'edit-modal-component',
   templateUrl: './edit-modal-component.component.html',
 })
 export class EditUserModalComponent {
