@@ -1,0 +1,13 @@
+.content {
+    padding: 20px;
+  }
+  
+  .bottom-toolbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
