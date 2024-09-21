@@ -24,10 +24,11 @@ export class UserComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.editUserForm = this.fb.group({
+      id: [''],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15)]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    });
+      name: ['', [Validators.required, Validators.minLength(6)]],
+          });
   }
 
   ngOnInit(): void {
@@ -57,8 +58,11 @@ export class UserComponent implements OnInit {
     this.editUserForm.patchValue({
       email: user.email,
       phone: user.phone,
-      password: ''
+      name: user.name,
+      id: user.id
     });
+console.log(this.editUserForm.value);
+
     const dialogRef = this.dialog.open(EditUserModalComponent, {
       data: { form: this.editUserForm }
     });
