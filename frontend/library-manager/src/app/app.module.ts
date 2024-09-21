@@ -9,14 +9,18 @@ import { UsersService } from './services/users-service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar'; 
 import { MatTableModule } from '@angular/material/table'; 
-import { FormsModule } from '@angular/forms'; 
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { EditUserModalComponent } from './users/edit-modal-component/edit-modal-component.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
-    LoansComponent
+    LoansComponent,
+    EditUserModalComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +29,11 @@ import { FormsModule } from '@angular/forms';
     RouterModule,
     MatToolbarModule,
     MatTableModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     UsersService
