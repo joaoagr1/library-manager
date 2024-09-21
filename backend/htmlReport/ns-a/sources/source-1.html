@@ -1,0 +1,91 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > GoogleBooksClient</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.manager.library.client</a>
+</div>
+
+<h1>Coverage Summary for Class: GoogleBooksClient (com.manager.library.client)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">GoogleBooksClient$MockitoMock$yHjTgRGp</td>
+  </tr>
+  <tr>
+    <td class="name">GoogleBooksClient$MockitoMock$yHjTgRGp$auxiliary$fJ3H9eob</td>
+  </tr>
+  <tr>
+    <td class="name">GoogleBooksClient$MockitoMock$yHjTgRGp$auxiliary$NuIAWSvM</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.manager.library.client;
+&nbsp;
+&nbsp;import com.manager.library.model.dtos.GoogleBooksResponseDTO;
+&nbsp;import org.springframework.cloud.openfeign.FeignClient;
+&nbsp;import org.springframework.stereotype.Repository;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.RequestParam;
+&nbsp;
+&nbsp;@Repository
+&nbsp;@FeignClient(name = &quot;googleBooksClient&quot;, url = &quot;https://www.googleapis.com/books/v1&quot;)
+&nbsp;public interface GoogleBooksClient {
+&nbsp;    @GetMapping(&quot;/volumes&quot;)
+&nbsp;    GoogleBooksResponseDTO getBookByIsbn(@RequestParam(&quot;q&quot;) String isbn);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-09-20 20:59</div>
+</div>
+</body>
+</html>

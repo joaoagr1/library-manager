@@ -1,11 +1,11 @@
 package com.manager.library.controller;
 
-import com.manager.library.model.domain.Book;
-import com.manager.library.model.dtos.BookRequestDTO;
-import com.manager.library.model.enums.Category;
-import com.manager.library.model.service.BookService;
+import com.manager.library.domain.Book;
+import com.manager.library.dtos.BookRequestDTO;
+import com.manager.library.dtos.GoogleBooksDetailResponseDTO;
+import com.manager.library.service.BookService;
 
-import com.manager.library.model.service.RecommendationService;
+import com.manager.library.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -27,26 +27,34 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody BookRequestDTO bookRequestDTO) {
+
         Book newBook = bookService.createBook(bookRequestDTO);
         return new ResponseEntity<>(newBook, HttpStatus.CREATED);
+
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable UUID id) {
+
         Book book = bookService.getBookById(id);
         return ResponseEntity.ok(book);
+
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable UUID id, @RequestBody BookRequestDTO bookRequestDTO) {
+
         Book updatedBook = bookService.updateBook(id, bookRequestDTO);
         return ResponseEntity.ok(updatedBook);
+
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable UUID id) {
+
         bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
+
     }
 
     @GetMapping
@@ -56,6 +64,7 @@ public class BookController {
 
         Page<Book> bookPage = bookService.listBooks(page, size);
         return ResponseEntity.ok(bookPage.getContent());
+
     }
 
     @GetMapping("/category/{userId}")
@@ -66,8 +75,16 @@ public class BookController {
     }
 
     @PostMapping("/google-api")
-    public Book addBook(@RequestParam String isbn) {
-        return bookService.addBookByIsbn(isbn);
+    public ResponseEntity<Book> addBook(@RequestParam String title) {
+
+        return ResponseEntity.ok(bookService.addBookByTitle(title));
+
     }
 
+    @GetMapping("/google-api")
+    public ResponseEntity<GoogleBooksDetailResponseDTO> getBookInformation(@RequestParam String title) {
+
+        return ResponseEntity.ok(bookService.getInformationByTitleFromGoogleApi(title));
+
+    }
 }

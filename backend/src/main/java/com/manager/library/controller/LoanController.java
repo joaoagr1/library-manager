@@ -1,8 +1,8 @@
 package com.manager.library.controller;
 
-import com.manager.library.model.dtos.LoanRequestDTO;
-import com.manager.library.model.domain.Loan;
-import com.manager.library.model.service.LoanService;
+import com.manager.library.dtos.LoanRequestDTO;
+import com.manager.library.domain.Loan;
+import com.manager.library.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +39,7 @@ public class LoanController {
     public ResponseEntity<Loan> getLoanById(@PathVariable UUID id) {
 
         Optional<Loan> loan = loanService.getLoanById(id);
-        return loan.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.of(loan);
 
     }
 
