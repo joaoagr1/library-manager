@@ -30,13 +30,14 @@ public class BookService {
             throw new IllegalArgumentException("Book with ISBN already exists");
         });
 
-        Book book = BookAdapter.toEntity(bookRequestDTO);
-        return bookRepository.save(book);
+        return bookRepository.save(BookAdapter.toEntity(bookRequestDTO));
+
     }
 
     public Book getBookById(UUID id) {
 
-        return bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Book not found"));
+        return bookRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("Book not found"));
 
     }
 

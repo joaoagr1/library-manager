@@ -1,6 +1,7 @@
 package com.manager.library.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.manager.library.domain.Book;
@@ -17,12 +18,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-import java.util.UUID;
-
-public class RecommendationServiceTest {
+class RecommendationServiceTest {
 
     @Mock
     private UsersRepository usersRepository;
@@ -37,71 +35,73 @@ public class RecommendationServiceTest {
     private RecommendationService recommendationService;
 
     private UUID userId;
+    private Users user;
+    private Book book1;
+    private Book book2;
+    private Loan loan1;
 
     @BeforeEach
-    public void setup() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
+
         userId = UUID.randomUUID();
-    }
-
-    @Test
-    public void testGetRecommendedBooks_UserHasLoans() {
-        Users user = new Users();
+        user = new Users();
         user.setId(userId);
 
-        Book book1 = new Book();
+        book1 = new Book();
         book1.setCategory(Category.FICTION);
-        Loan loan1 = new Loan();
+
+        book2 = new Book();
+        book2.setCategory(Category.SCIENCE);
+
+        loan1 = new Loan();
         loan1.setBook(book1);
-
-        Book book2 = new Book();
-        book2.setCategory(Category.NON_FICTION);
-        Loan loan2 = new Loan();
-        loan2.setBook(book2);
-
-        when(usersRepository.getReferenceById(userId)).thenReturn(user);
-        when(loanRepository.findAllByUserId(userId)).thenReturn(Arrays.asList(loan1, loan2));
-        when(bookRepository.findFirstByCategory(Category.SCIENCE)).thenReturn(new Book());
-
-        List<Book> recommendedBooks = recommendationService.getRecommendedBooks(userId);
-
-        assertEquals(1, recommendedBooks.size());
     }
 
     @Test
-    public void testGetRecommendedBooks_UserHasNoLoans() {
-        Users user = new Users();
-        user.setId(userId);
-
-        when(usersRepository.getReferenceById(userId)).thenReturn(user);
-        when(loanRepository.findAllByUserId(userId)).thenReturn(Arrays.asList());
-
-        Book recommendedBook = new Book();
-        recommendedBook.setCategory(Category.FICTION);
-        when(bookRepository.findFirstByCategory(Category.FICTION)).thenReturn(recommendedBook);
-
-        List<Book> recommendedBooks = recommendationService.getRecommendedBooks(userId);
-
-        assertEquals(1, recommendedBooks.size());
-        assertEquals(Category.FICTION, recommendedBooks.get(0).getCategory());
-    }
-
-    @Test
-    public void testGetRecommendedBooks_NoAvailableBooks() {
-        Users user = new Users();
-        user.setId(userId);
-
-        Book book1 = new Book();
-        book1.setCategory(Category.FICTION);
-        Loan loan1 = new Loan();
-        loan1.setBook(book1);
-
-        when(usersRepository.getReferenceById(userId)).thenReturn(user);
-        when(loanRepository.findAllByUserId(userId)).thenReturn(Arrays.asList(loan1));
+    void shouldReturnRecommendedBooks() {
+        when(usersRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(loanRepository.findAllByUserId(userId)).thenReturn(Collections.singletonList(loan1));
+        when(bookRepository.findFirstByCategory(Category.SCIENCE)).thenReturn(book2);
         when(bookRepository.findFirstByCategory(Category.NON_FICTION)).thenReturn(null);
 
         List<Book> recommendedBooks = recommendationService.getRecommendedBooks(userId);
 
-        assertEquals(0, recommendedBooks.size());
+        assertNotNull(recommendedBooks);
+        assertEquals(1, recommendedBooks.size());
+        assertTrue(recommendedBooks.contains(book2));
+
+        verify(usersRepository, times(1)).findById(userId);
+        verify(loanRepository, times(1)).findAllByUserId(userId);
+        verify(bookRepository, times(1)).findFirstByCategory(Category.SCIENCE);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserNotFound() {
+        when(usersRepository.findById(userId)).thenReturn(Optional.empty());
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            recommendationService.getRecommendedBooks(userId);
+        });
+
+        assertEquals("User not found", exception.getMessage());
+
+        verify(usersRepository, times(1)).findById(userId);
+        verify(loanRepository, never()).findAllByUserId(userId);
+    }
+
+    @Test
+    void shouldReturnEmptyListWhenNoRecommendedBooks() {
+        when(usersRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(loanRepository.findAllByUserId(userId)).thenReturn(Collections.singletonList(loan1));
+        when(bookRepository.findFirstByCategory(any(Category.class))).thenReturn(null);
+
+        List<Book> recommendedBooks = recommendationService.getRecommendedBooks(userId);
+
+        assertNotNull(recommendedBooks);
+        assertTrue(recommendedBooks.isEmpty());
+
+        verify(usersRepository, times(1)).findById(userId);
+        verify(loanRepository, times(1)).findAllByUserId(userId);
     }
 }

@@ -69,7 +69,9 @@ public class LoanService {
     }
 
     public boolean hasActiveLoanForBook(UUID bookId) {
+
         return loanRepository.existsByBookIdAndStatus(bookId, LoanStatus.ACTIVE);
+
     }
 
 
