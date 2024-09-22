@@ -35,28 +35,31 @@ mat-toolbar {
     z-index: 2;
     display: flex;
     justify-content: space-around;
-    background-color: #333; /* Fundo preto */
-    padding: 10px 0; /* Espaçamento vertical */
+    background-color: #333; 
+    padding: 10px 0;
   }
   
   .bottom-toolbar button {
-    color: white; /* Cor do texto dos botões */
+    color: white; 
     font-weight: bold;
-    background-color: transparent; /* Fundo transparente */
-    border: none; /* Sem borda */
-    padding: 10px 20px; /* Espaçamento interno */
-    border-radius: 5px; /* Bordas arredondadas */
-    transition: background-color 0.3s; /* Transição suave */
+    background-color: transparent; 
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px; 
+    transition: background-color 0.3s; 
   }
   
   .bottom-toolbar button:hover {
-    background-color: #aeaeae; /* Cor de fundo ao passar o mouse */
+    background-color: #aeaeae; 
   }
 
 
-  /* styles.css */
 .error-snackbar {
-  margin-top: 20px; /* Ajuste conforme necessário */
-  background-color: #f44336; /* Cor de fundo para erro */
-  color: white; /* Cor do texto */
+  margin-top: 20px; 
+  background-color: #f44336; 
+  color: white;
+}
+
+.toolbar-title {
+  cursor: pointer;
 }
