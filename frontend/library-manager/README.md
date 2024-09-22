@@ -1,27 +1,112 @@
-# LibraryManager
+Sure, here is a comprehensive README documentation for your Angular application:
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.5.
+# Library Manager
 
-## Development server
+Library Manager is an Angular application designed to manage book loans in a library. It allows users to view, edit, and manage loans, including details about users and books.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Table of Contents
 
-## Code scaffolding
+- [Library Manager](#library-manager)
+  - [Table of Contents](#table-of-contents)
+  - Features
+  - Prerequisites
+  - Installation
+  - [Running the Application](#running-the-application)
+  - [Project Structure](#project-structure)
+  - Services
+  - Components
+  - Models
+  - Styling
+  - [Error Handling](#error-handling)
+  - Contributing
+  - License
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## Prerequisites
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Before you begin, ensure you have met the following requirements:
 
-## Running unit tests
+- Node.js and npm installed
+- Angular CLI installed globally
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Installation
 
-## Running end-to-end tests
+1. Clone the repository:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+git clone https://github.com/joaoagr1/library-manager.git
+cd library-manager
+```
 
-## Further help
+2. Install dependencies:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+npm install
+```
+
+## Running the Application
+
+To run the application locally, use the following command:
+(Its important use npm install instead of ng serve due to proxy config)
+
+```bash
+npm start
+```
+
+Navigate to `http://localhost:4200/` in your browser to see the application running.
+
+## Project Structure
+
+The project structure is as follows:
+
+```
+src/
+├── app/
+│   ├── models/
+│   │   ├── book.model.ts
+│   │   ├── loan.model.ts
+│   │   └── user.model.ts
+│   ├── services/
+│   │   ├── book-service.ts
+│   │   ├── loan-service.ts
+│   │   └── user-service.ts
+│   ├── loans/
+│   │   ├── edit-loan-dialog/
+│   │   │   ├── edit-loan-dialog.component.html
+│   │   │   ├── edit-loan-dialog.component.ts
+│   │   │   └── edit-loan-dialog.component.css
+│   │   ├── loans.component.html
+│   │   ├── loans.component.ts
+│   │   └── loans.component.css
+│   ├── books/
+│   │   ├── book-list/
+│   │   │   ├── book-list.component.html
+│   │   │   ├── book-list.component.ts
+│   │   │   └── book-list.component.css
+│   │   ├── book-detail/
+│   │   │   ├── book-detail.component.html
+│   │   │   ├── book-detail.component.ts
+│   │   │   └── book-detail.component.css
+│   ├── users/
+│   │   ├── user-list/
+│   │   │   ├── user-list.component.html
+│   │   │   ├── user-list.component.ts
+│   │   │   └── user-list.component.css
+│   │   ├── user-detail/
+│   │   │   ├── user-detail.component.html
+│   │   │   ├── user-detail.component.ts
+│   │   │   └── user-detail.component.css
+│   ├── home/
+│   │   ├── home.component.html
+│   │   ├── home.component.ts
+│   │   └── home.component.css
+│   ├── app.component.html
+│   ├── app.component.ts
+│   └── app.module.ts
+├── assets/
+├── environments/
+├── index.html
+├── main.ts
+└── styles.css
+```
+

@@ -19,7 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { EditBookDialogComponent } from './books/edit-book-dialog/edit-book-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
-import { EditLoanDialogComponent } from './loans/edit-loan-dialog/edit-loan-dialog.component'; // Adicione esta linha
+import { EditLoanDialogComponent } from './loans/edit-loan-dialog/edit-loan-dialog.component'; 
 
 @NgModule({
   declarations: [

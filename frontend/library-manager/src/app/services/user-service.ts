@@ -9,7 +9,7 @@ import { NotificationService } from './notification-service';
 })
 export class UsersService {
 
-  private apiUrl = '/api/library/users'; // Use o caminho do proxy
+  private apiUrl = '/api/library/users';
 
   constructor(private http: HttpClient, private notificationService: NotificationService) {}
 
@@ -27,9 +27,7 @@ export class UsersService {
   }
 
   updateUser(user: any): Observable<any> {
-    // console.log("user clicadoooooooo");
-    // console.log(user);
-
+    
     console.log("entrou no serive????");
 
     return this.http.put(`${this.apiUrl}/${user.id}`, user);

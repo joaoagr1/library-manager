@@ -50,7 +50,7 @@ export class BooksComponent implements OnInit {
     this.booksService.createBook(this.newBook).subscribe(
       (newBook: Book) => {
         this.books.push(newBook);
-        this.dataSource.data = this.books.slice(); // Atualiza a dataSource com uma nova referência
+        this.dataSource.data = this.books.slice(); 
         this.resetNewBook();
       },
       (error) => {
