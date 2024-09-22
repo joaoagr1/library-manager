@@ -20,13 +20,23 @@ This API provides functionalities to manage books in a library system. It includ
         - [List Books](#list-books)
         - [Add Book by Title](#add-book-by-title)
         - [Get Information by Title from Google API](#get-information-by-title-from-google-api)
+        - [Create User](#create-user)
+        - [Update User](#update-user)
+        - [Delete User](#delete-user)
+        - [Get User by ID](#get-user-by-id)
+        - [List Users](#list-users)
+        - [Create Loan](#create-loan)
+        - [Get Loan by ID](#get-loan-by-id)
+        - [Update Loan](#update-loan)
+        - [Delete Loan](#delete-loan)
+        - [List Loans](#list-loans)
 - [Error Handling](#error-handling)
 - [Testing](#testing)
 - [License](#license)
 
 ## Requirements
 
-- Java 11 or higher
+- Java 21 or higher
 - Maven 3.6.0 or higher
 - Spring Boot 2.5.4 or higher
 
@@ -34,7 +44,7 @@ This API provides functionalities to manage books in a library system. It includ
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/library-manager.git
+   git clone https://github.com/joaoagr1/library-manager.git
    cd library-manager
    ```
 
@@ -201,6 +211,336 @@ google.books.api.key=your_google_books_api_key
   }
   ```
 
+#### Create User
+
+- **URL:** `/library/users`
+- **Method:** `POST`
+- **Request Body:**
+  ```json
+  {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "password": "password123"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "id": "uuid",
+    "name": "John Doe",
+    "email": "john.doe@example.com"
+  }
+  ```
+
+#### Update User
+
+- **URL:** `/library/users/{id}`
+- **Method:** `PUT`
+- **Request Body:**
+  ```json
+  {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "password": "newpassword123"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "id": "uuid",
+    "name": "John Doe",
+    "email": "john.doe@example.com"
+  }
+  ```
+
+#### Delete User
+
+- **URL:** `/library/users/{id}`
+- **Method:** `DELETE`
+- **Response:** `204 No Content`
+
+#### Get User by ID
+
+- **URL:** `/library/users/{id}`
+- **Method:** `GET`
+- **Response:**
+  ```json
+  {
+    "id": "uuid",
+    "name": "John Doe",
+    "email": "john.doe@example.com"
+  }
+  ```
+
+#### List Users
+
+- **URL:** `/library/users`
+- **Method:** `GET`
+- **Response:**
+  ```json
+  [
+    {
+      "id": "uuid",
+      "name": "John Doe",
+      "email": "john.doe@example.com"
+    }
+  ]
+  ```
+
+### Loan Service API Documentation
+
+## Overview
+
+This API provides functionalities to manage loans in a library system. It includes operations to create, retrieve, update, delete, and list loans.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Table of Contents](#table-of-contents)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+    - [Endpoints](#endpoints)
+        - [Create Loan](#create-loan)
+        - [Get Loan by ID](#get-loan-by-id)
+        - [Update Loan](#update-loan)
+        - [Delete Loan](#delete-loan)
+        - [List Loans](#list-loans)
+- [Error Handling](#error-handling)
+- [Testing](#testing)
+- [License](#license)
+
+## Requirements
+
+- Java 11 or higher
+- Maven 3.6.0 or higher
+- Spring Boot 2.5.4 or higher
+
+## Installation
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/library-manager.git
+   cd library-manager
+   ```
+
+2. Build the project:
+   ```sh
+   mvn clean install
+   ```
+
+## Configuration
+
+Configure the application properties in `src/main/resources/application.properties`:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/library
+spring.datasource.username=root
+spring.datasource.password=yourpassword
+spring.jpa.hibernate.ddl-auto=update
+google.books.api.key=your_google_books_api_key
+```
+
+## Usage
+
+### Endpoints
+
+#### Create Loan
+
+- **URL:** `/library/loans`
+- **Method:** `POST`
+- **Request Body:**
+  ```json
+  {
+    "userId": "uuid",
+    "bookId": "uuid",
+    "loanDate": "2023-10-01",
+    "returnDate": "2023-10-15"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "id": "uuid",
+    "userId": "uuid",
+    "bookId": "uuid",
+    "loanDate": "2023-10-01",
+    "returnDate": "2023-10-15"
+  }
+  ```
+
+#### Get Loan by ID
+
+- **URL:** `/library/loans/{id}`
+- **Method:** `GET`
+- **Response:**
+  ```json
+  {
+    "id": "uuid",
+    "userId": "uuid",
+    "bookId": "uuid",
+    "loanDate": "2023-10-01",
+    "returnDate": "2023-10-15"
+  }
+  ```
+
+#### Update Loan
+
+- **URL:** `/library/loans/{id}`
+- **Method:** `PUT`
+- **Request Body:**
+  ```json
+  {
+    "userId": "uuid",
+    "bookId": "uuid",
+    "loanDate": "2023-10-01",
+    "returnDate": "2023-10-20"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "id": "uuid",
+    "userId": "uuid",
+    "bookId": "uuid",
+    "loanDate": "2023-10-01",
+    "returnDate": "2023-10-20"
+  }
+  ```
+
+#### Delete Loan
+
+- **URL:** `/library/loans/{id}`
+- **Method:** `DELETE`
+- **Response:** `204 No Content`
+
+#### List Loans
+
+- **URL:** `/library/loans`
+- **Method:** `GET`
+- **Response:**
+  ```json
+  [
+    {
+      "id": "uuid",
+      "userId": "uuid",
+      "bookId": "uuid",
+      "loanDate": "2023-10-01",
+      "returnDate": "2023-10-15"
+    }
+  ]
+  ```
+
+## Error Handling
+
+Errors are returned in the following format:
+
+```json
+{
+  "error": "Error message",
+  "status": 400
+}
+```
+
+#### Create Loan
+
+- **URL:** `/library/loans`
+- **Method:** `POST`
+- **Request Body:**
+  ```json
+  {
+    "userId": "uuid",
+    "bookId": "uuid",
+    "loanDate": "2023-10-01",
+    "returnDate": "2023-10-15"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "id": "uuid",
+    "userId": "uuid",
+    "bookId": "uuid",
+    "loanDate": "2023-10-01",
+    "returnDate": "2023-10-15"
+  }
+  ```
+
+#### Get Loan by ID
+
+- **URL:** `/library/loans/{id}`
+- **Method:** `GET`
+- **Response:**
+  ```json
+  {
+    "id": "uuid",
+    "userId": "uuid",
+    "bookId": "uuid",
+    "loanDate": "2023-10-01",
+    "returnDate": "2023-10-15"
+  }
+  ```
+
+#### Update Loan
+
+- **URL:** `/library/loans/{id}`
+- **Method:** `PUT`
+- **Request Body:**
+  ```json
+  {
+    "userId": "uuid",
+    "bookId": "uuid",
+    "loanDate": "2023-10-01",
+    "returnDate": "2023-10-20"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "id": "uuid",
+    "userId": "uuid",
+    "bookId": "uuid",
+    "loanDate": "2023-10-01",
+    "returnDate": "2023-10-20"
+  }
+  ```
+
+#### Delete Loan
+
+- **URL:** `/library/loans/{id}`
+- **Method:** `DELETE`
+- **Response:** `204 No Content`
+
+#### List Loans
+
+- **URL:** `/library/loans`
+- **Method:** `GET`
+- **Response:**
+  ```json
+  [
+    {
+      "id": "uuid",
+      "userId": "uuid",
+      "bookId": "uuid",
+      "loanDate": "2023-10-01",
+      "returnDate": "2023-10-15"
+    }
+  ]
+  ```
+
+## Testing
+
+Run the tests using Maven:
+
+```sh
+mvn test
+```
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
 ## Error Handling
 
 Errors are returned in the following format:
@@ -223,3 +563,12 @@ mvn test
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+
+
+
+       
+
+
+
+
