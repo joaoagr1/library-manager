@@ -6,7 +6,10 @@ import com.manager.library.domain.Book;
 import com.manager.library.dtos.BookRequestDTO;
 import com.manager.library.dtos.GoogleBooksDetailResponseDTO;
 import com.manager.library.dtos.GoogleBooksResponseDTO;
+import com.manager.library.enums.LoanStatus;
 import com.manager.library.repository.BookRepository;
+import com.manager.library.repository.LoanRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,13 +19,13 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class BookService {
 
-    @Autowired
     private BookRepository bookRepository;
 
-    @Autowired
     private GoogleBooksClient googleBooksClient;
+    private LoanRepository loansRepository;
 
     public Book createBook(BookRequestDTO bookRequestDTO) {
 
@@ -55,6 +58,12 @@ public class BookService {
     public void deleteBook(UUID id) {
 
         bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Book not found"));
+
+        loansRepository.findAllByBookId(id).forEach(loan -> {
+            if(loan.getStatus().equals(LoanStatus.ACTIVE)) {
+                throw new IllegalArgumentException("Book is currently loaned");
+            }
+        });
         bookRepository.deleteById(id);
 
     }

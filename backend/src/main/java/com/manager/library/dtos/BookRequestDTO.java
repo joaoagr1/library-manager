@@ -30,7 +30,7 @@ public record BookRequestDTO(
         @NotNull(message = "Publication date is required")
         Year publicationDate,
 
-        @NotNull(message = "Category is required")
+        @NotBlank(message = "Category is required")
         @Enumerated(EnumType.STRING)
         Category category
 

@@ -17,10 +17,15 @@ export class BooksComponent implements OnInit {
     author: '',
     isbn: '',
     publicationDate: '',
-    category: ''
+    category: 'FICTION'
   };
   displayedColumns: string[] = ['id', 'title', 'author', 'isbn', 'publicationDate', 'category', 'actions'];
   dataSource = new MatTableDataSource<Book>();
+  categories: string[] = [
+    'FICTION', 'NON_FICTION', 'SCIENCE', 'HISTORY', 'FANTASY', 'MYSTERY', 'ROMANCE', 'THRILLER', 'BIOGRAPHY', 'SELF_HELP', 
+    'HEALTH', 'TRAVEL', 'COOKING', 'ART', 'TECHNOLOGY', 'BUSINESS', 'POLITICS', 'RELIGION', 'CHILDREN', 'YOUNG_ADULT', 
+    'CLASSICS', 'POETRY', 'GRAPHIC_NOVELS', 'HOBBIES', 'SCIENCE_FICTION', 'COMPUTERS', 'BIBLES'
+  ];
 
   constructor(
     private booksService: BooksService,
@@ -45,12 +50,16 @@ export class BooksComponent implements OnInit {
 
   createBook(): void {
     this.booksService.createBook(this.newBook).subscribe(
+
+
+      
       (newBook: Book) => {
         this.books.push(newBook);
-        this.dataSource.data = [...this.books]; // Atualiza a dataSource com uma nova referência
+        this.dataSource.data = [...this.books]; 
         this.resetNewBook();
       },
       (error) => {
+        console.error(this.newBook);
         this.notificationService.showError(error.error.error);
       }
     );

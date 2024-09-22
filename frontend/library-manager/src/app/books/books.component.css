@@ -145,3 +145,16 @@
   .spacer {
     flex: 1 1 auto;
   }
+
+  #book-form .custom-select {
+    background-color: #ffffff;
+    border: 0.8px solid #00000065;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  #book-form .custom-option {
+    padding: 10px;
+    font-size: 14px;
+  }
