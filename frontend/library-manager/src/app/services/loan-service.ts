@@ -26,6 +26,7 @@ export class LoansService {
   }
 
   updateLoan( loanRequestDTO: Loan): Observable<Loan> {
+    console.log("serviceeee:  "+loanRequestDTO.id);
     return this.http.put<Loan>(`${this.apiUrl}/${loanRequestDTO.id}`, loanRequestDTO);
   }
 

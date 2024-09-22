@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Edit Loan</h1>
-<div mat-dialog-content>
-  <form #editLoanForm="ngForm">
-    <mat-form-field>
+<div mat-dialog-content >
+  <form #editLoanForm="ngForm" >
+    <mat-form-field >
       <mat-label>User ID</mat-label>
       <input matInput [(ngModel)]="data.loan.userId" name="userId" required>
     </mat-form-field>
@@ -20,6 +20,6 @@
   </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button (click)="onSave()">Save</button>
+  <button class="button" mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button class="button-primary" (click)="onSave()">Save</button>
 </div>

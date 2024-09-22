@@ -4,6 +4,7 @@ import { Loan } from '../models/loans.model';
 import { LoansService } from '../services/loan-service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditLoanDialogComponent } from './edit-loan-dialog/edit-loan-dialog.component';
+import { NotificationService } from '../services/notification-service';
 
 
 @Component({
@@ -25,7 +26,10 @@ export class LoansComponent implements OnInit {
   isEditing: boolean = false; 
 
 
-  constructor(private loanService: LoansService, public dialog: MatDialog) {}
+  constructor(private loanService: LoansService,
+     public dialog: MatDialog,
+     private notificationService: NotificationService
+    ) {}
 
 
   ngOnInit(): void {
@@ -36,7 +40,11 @@ export class LoansComponent implements OnInit {
     this.loanService.getAllLoans().subscribe(loans => {
       console.log(loans);
       this.dataSource.data = loans;
-    });
+    },
+    error => {
+      this.notificationService.showError(error.error.error);
+    }
+  );
   }
 
   onSubmit(): void {
@@ -48,10 +56,16 @@ export class LoansComponent implements OnInit {
         loanDate: '',
         returnDate: ''
       };
-    });
+    },
+    error => {
+      this.notificationService.showError(error.error.error);
+    }
+  );
+
   }
 
   onEdit(loan: Loan): void {
+    console.log(loan);
     const dialogRef = this.dialog.open(EditLoanDialogComponent, {
       width: '400px',
       data: { loan }
@@ -59,11 +73,18 @@ export class LoansComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.loanService.updateLoan(result).subscribe(() => {
-          this.loadLoans();
-        });
+        console.log(result);
+        this.loanService.updateLoan(result).subscribe(
+          () => {
+            this.loadLoans();
+          },
+          error => {
+            this.notificationService.showError(error.error.error);
+          }
+        );
       }
     });
+  
   }
 
   onDelete(id: string): void {

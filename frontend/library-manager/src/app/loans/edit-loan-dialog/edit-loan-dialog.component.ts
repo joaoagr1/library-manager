@@ -20,4 +20,6 @@ export class EditLoanDialogComponent {
   onSave(): void {
     this.dialogRef.close(this.data.loan);
   }
+
+
 }
