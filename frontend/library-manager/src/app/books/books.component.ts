@@ -13,17 +13,17 @@ import { NotificationService } from '../services/notification-service';
 })
 export class BooksComponent implements OnInit {
   books: Book[] = [];
-  categories: string[] = ['Fiction', 'Non-Fiction', 'Science', 'History', 'Biography'];
+  categories: string[] = ['FICTION', 'NON_FICTION', 'SCIENCE', 'HISTORY', 'BIOGRAPHY'];
   newBook: Book = {
     title: '',
     author: '',
     isbn: '',
     publicationDate: '',
-    category: 'Fiction'
+    category: 'FICTION'
   };
   displayedColumns: string[] = ['id', 'title', 'author', 'isbn', 'publicationDate', 'category', 'actions'];
   dataSource = new MatTableDataSource<Book>();
-  isEditing: boolean = false; // Adiciona a propriedade isEditing
+  isEditing: boolean = false; 
 
   constructor(private booksService: BooksService, 
     public dialog: MatDialog,
@@ -54,6 +54,7 @@ export class BooksComponent implements OnInit {
         this.resetNewBook();
       },
       (error) => {
+        console.log(error);
         this.notificationService.showError(error.error.error);
       }
     );
@@ -67,7 +68,7 @@ export class BooksComponent implements OnInit {
         this.dataSource.data = this.books.slice(); 
       },
       (error) => {
-        this.notificationService.showError(error.error.error);
+        this.notificationService.showError(error.error.error.error);
       }
     );
   }
@@ -102,7 +103,7 @@ export class BooksComponent implements OnInit {
       author: '',
       isbn: '',
       publicationDate: '',
-      category: 'Fiction' // Valor padrão para a categoria
+      category: 'Fiction' 
     };
   }
 }
