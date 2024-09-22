@@ -1,5 +1,6 @@
 package com.manager.library.dtos;
 
+import com.manager.library.enums.Category;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;

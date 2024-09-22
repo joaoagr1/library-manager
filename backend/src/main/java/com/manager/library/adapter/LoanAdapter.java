@@ -4,11 +4,14 @@ import com.manager.library.domain.Book;
 import com.manager.library.domain.Loan;
 import com.manager.library.domain.Users;
 import com.manager.library.dtos.LoanRequestDTO;
+import com.manager.library.enums.LoanStatus;
 import com.manager.library.exceptions.EntityNotFoundException;
 import com.manager.library.repository.BookRepository;
 import com.manager.library.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @Component
 public class LoanAdapter {
@@ -36,6 +39,8 @@ public class LoanAdapter {
                 .returnDate(dto.returnDate())
                 .book(book)
                 .user(user)
+                .status(LoanStatus.ACTIVE)
+                .loanDate(LocalDate.now())
                 .build();
 
     }

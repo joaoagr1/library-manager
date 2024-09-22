@@ -18,7 +18,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { EditBookDialogComponent } from './books/edit-book-dialog/edit-book-dialog.component';
-import { MatSelectModule } from '@angular/material/select'; // Adicione esta linha
+import { MatSelectModule } from '@angular/material/select';
+import { EditLoanDialogComponent } from './loans/edit-loan-dialog/edit-loan-dialog.component'; // Adicione esta linha
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MatSelectModule } from '@angular/material/select'; // Adicione esta lin
     LoansComponent,
     EditUserModalComponent,
     HomeComponent,
-    EditBookDialogComponent
+    EditBookDialogComponent,
+    EditLoanDialogComponent
   ],
   imports: [
     BrowserModule,
