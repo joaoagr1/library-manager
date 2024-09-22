@@ -103,7 +103,8 @@ export class UserComponent implements OnInit {
           this.loadUsers();
         },
         error => {
-          this.notificationService.showError('Failed to update user');
+          console.log(error.error);
+          this.notificationService.showError(error.error.error);
         }
       );
     }
