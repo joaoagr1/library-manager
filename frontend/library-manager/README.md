@@ -1,4 +1,4 @@
-Sure, here is a comprehensive README documentation for your Angular application:
+![image](https://github.com/user-attachments/assets/b7144792-179c-4088-b7ff-59d126660571)Sure, here is a comprehensive README documentation for your Angular application:
 
 # Library Manager
 
@@ -109,4 +109,14 @@ src/
 ├── main.ts
 └── styles.css
 ```
+
+Screens:
+
+![image](https://github.com/user-attachments/assets/f4f00c97-43a1-4b16-951e-2f9357cce363)
+
+![image](https://github.com/user-attachments/assets/730646fa-027d-4d4c-ab27-1900f1dded73)
+
+![image](https://github.com/user-attachments/assets/6ba954fb-632a-41b4-84e3-1d533fc20ba6)
+
+![image](https://github.com/user-attachments/assets/be0449b1-dae0-480d-8cf1-31569a70281a)
 
