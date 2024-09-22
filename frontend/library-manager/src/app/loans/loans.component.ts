@@ -16,6 +16,7 @@ export class LoansComponent implements OnInit {
     bookId: '',
     returnDate: '',
     loanStatus:'ACTIVE',
+    loanDate: ''
   };
 
   isEditing: boolean = false; 
@@ -29,6 +30,7 @@ export class LoansComponent implements OnInit {
 
   loadLoans(): void {
     this.loanService.getAllLoans().subscribe(loans => {
+      console.log(loans);
       this.dataSource.data = loans;
     });
   }
