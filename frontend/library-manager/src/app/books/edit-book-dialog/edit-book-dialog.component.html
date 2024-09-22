@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>Edit Book</h1>
+<div mat-dialog-content>
+  <form>
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput [(ngModel)]="data.title" name="title">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Author</mat-label>
+      <input matInput [(ngModel)]="data.author" name="author">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>ISBN</mat-label>
+      <input matInput [(ngModel)]="data.isbn" name="isbn">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Publication Date</mat-label>
+      <input matInput [(ngModel)]="data.publicationDate" name="publicationDate">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select [(ngModel)]="data.category" name="category">
+        <mat-option *ngFor="let category of ['Fiction', 'Non-Fiction', 'Science', 'History', 'Biography']" [value]="category">
+          {{category}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions class="actions">
+  <button mat-button class="button" (click)="onNoClick()">Cancel</button>
+  <button mat-button class="button button-primary" (click)="save()">Save</button>
+</div>

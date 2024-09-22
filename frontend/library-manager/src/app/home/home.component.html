@@ -1,16 +1,28 @@
 
-<mat-toolbar color="primary">
-    <span>Library Manager</span>
-  </mat-toolbar>
-  
-  <div class="content">
 
+<div class="content">
+  <div class="introduction">
+    <p>
+      I am a sixth-semester Software Engineering student at Unicesumar and have been working as a developer for a year. My experience includes developing back-end and front-end applications, with skills in Java, Spring Boot, PostgreSQL/SQL, Docker, and currently studying Angular. I have participated in several hackathons, including Inova Agro and NASA Space Apps Challenge, where I achieved 3rd place in two editions.
+    </p>
+    <p>
+      My academic and professional experiences have allowed me to develop skills in leadership, discipline, and teamwork, as well as deepen my knowledge in emerging technologies and agile development practices. I seek to apply my knowledge and experience in challenging and impactful projects, always aiming to deliver innovative and efficient solutions.
+    </p>
+    <p>
+      See more about my projects and participations at:
+      <a href="https://github.com/joaoagr1" target="_blank">https://github.com/joaoagr1</a>
+    </p>
+    <p>
+      This application is a library manager that allows you to add books, users, and make loans. To navigate through the application, simply click on one of the options in the bottom toolbar.
+    </p>
+  </div>
 </div>
-  
-  <mat-toolbar color="primary" class="bottom-toolbar">
-    <span class="spacer"></span>
-    <button mat-button routerLink="/users">Users</button>
-    <button mat-button routerLink="/books">Books</button>
-    <button mat-button routerLink="/loans">Loans</button>
-    <span class="spacer"></span>
-  </mat-toolbar>
+
+<mat-toolbar color="primary" class="bottom-toolbar">
+  <span class="spacer"></span>
+  <button mat-button routerLink="/users">Users</button>
+  <button mat-button routerLink="/books">Books</button>
+  <button mat-button routerLink="/loans">Loans</button>
+  <span class="spacer"></span>
+</mat-toolbar>
+<router-outlet></router-outlet>
