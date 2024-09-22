@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BooksService } from '../services/books-service';
 import { Book } from '../models/books.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { NotificationService } from '../services/notification-service';
+
 
 @Component({
   selector: 'app-books',
@@ -17,8 +20,12 @@ export class BooksComponent implements OnInit {
     category: ''
   };
   displayedColumns: string[] = ['id', 'title', 'author', 'isbn', 'publicationDate', 'category', 'actions'];
+  dataSource = new MatTableDataSource<Book>();
 
-  constructor(private booksService: BooksService) {}
+  constructor(
+    private booksService: BooksService,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit(): void {
     this.listBooks();
@@ -28,9 +35,10 @@ export class BooksComponent implements OnInit {
     this.booksService.listBooks().subscribe(
       (data: Book[]) => {
         this.books = data;
+        this.dataSource.data = data;
       },
       (error) => {
-        console.error('Error fetching books', error);
+        this.notificationService.showError(error.error.error);
       }
     );
   }
@@ -38,12 +46,12 @@ export class BooksComponent implements OnInit {
   createBook(): void {
     this.booksService.createBook(this.newBook).subscribe(
       (newBook: Book) => {
-        console.log('component: ', newBook);
         this.books.push(newBook);
+        this.dataSource.data = [...this.books]; // Atualiza a dataSource com uma nova referência
         this.resetNewBook();
       },
       (error) => {
-        console.error('Error creating book', error);
+        this.notificationService.showError(error.error.error);
       }
     );
   }
@@ -56,9 +64,10 @@ export class BooksComponent implements OnInit {
     this.booksService.deleteBook(id).subscribe(
       () => {
         this.books = this.books.filter(b => b.id !== id);
+        this.dataSource.data = [...this.books]; 
       },
       (error) => {
-        console.error('Error deleting book', error);
+        this.notificationService.showError(error.error.error);
       }
     );
   }

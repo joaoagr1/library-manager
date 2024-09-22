@@ -9,7 +9,7 @@ import { NotificationService } from './notification-service';
 })
 export class BooksService {
 
-  private apiUrl = '/api/library/books'; // Use o caminho do proxy
+  private apiUrl = '/api/library/books'; 
 
   constructor(private http: HttpClient, private notificationService: NotificationService) {}
 
