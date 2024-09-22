@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Loan } from '../models/loans.model';
 import { LoansService } from '../services/loan-service';
+import { MatDialog } from '@angular/material/dialog';
+import { EditLoanDialogComponent } from './edit-loan-dialog/edit-loan-dialog.component';
+
 
 @Component({
   selector: 'app-loans',
@@ -9,7 +12,7 @@ import { LoansService } from '../services/loan-service';
   styleUrls: ['./loans.component.css']
 })
 export class LoansComponent implements OnInit {
-  displayedColumns: string[] = ['user', 'book', 'loanDate', 'returnDate', 'status'];
+  displayedColumns: string[] = ['user', 'book', 'loanDate', 'returnDate', 'status', 'actions'];
   dataSource = new MatTableDataSource<Loan>();
   newLoan: Loan = {
     userId: '',
@@ -22,7 +25,8 @@ export class LoansComponent implements OnInit {
   isEditing: boolean = false; 
 
 
-  constructor(private loanService: LoansService) {}
+  constructor(private loanService: LoansService, public dialog: MatDialog) {}
+
 
   ngOnInit(): void {
     this.loadLoans();
@@ -44,6 +48,27 @@ export class LoansComponent implements OnInit {
         loanDate: '',
         returnDate: ''
       };
+    });
+  }
+
+  onEdit(loan: Loan): void {
+    const dialogRef = this.dialog.open(EditLoanDialogComponent, {
+      width: '400px',
+      data: { loan }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loanService.updateLoan(result).subscribe(() => {
+          this.loadLoans();
+        });
+      }
+    });
+  }
+
+  onDelete(id: string): void {
+    this.loanService.deleteLoan(id).subscribe(() => {
+      this.loadLoans();
     });
   }
 }
