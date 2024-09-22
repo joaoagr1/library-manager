@@ -4,6 +4,7 @@ import { Book } from '../models/books.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { EditBookDialogComponent } from './edit-book-dialog/edit-book-dialog.component';
+import { NotificationService } from '../services/notification-service';
 
 @Component({
   selector: 'app-books',
@@ -24,7 +25,10 @@ export class BooksComponent implements OnInit {
   dataSource = new MatTableDataSource<Book>();
   isEditing: boolean = false; // Adiciona a propriedade isEditing
 
-  constructor(private booksService: BooksService, public dialog: MatDialog) {}
+  constructor(private booksService: BooksService, 
+    public dialog: MatDialog,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit(): void {
     this.listBooks();
@@ -37,7 +41,7 @@ export class BooksComponent implements OnInit {
         this.dataSource.data = data;
       },
       (error) => {
-        console.error('Error fetching books', error);
+        this.notificationService.showError(error.error.error);
       }
     );
   }
@@ -50,23 +54,20 @@ export class BooksComponent implements OnInit {
         this.resetNewBook();
       },
       (error) => {
-        console.error('Error creating book', error);
+        this.notificationService.showError(error.error.error);
       }
     );
   }
 
-  deleteBook(id?: string): void {
-    if (!id) {
-      console.error('Book ID is undefined');
-      return;
-    }
+  deleteBook(id: string): void {
+   
     this.booksService.deleteBook(id).subscribe(
       () => {
         this.books = this.books.filter(b => b.id !== id);
         this.dataSource.data = this.books.slice(); 
       },
       (error) => {
-        console.error('Error deleting book', error);
+        this.notificationService.showError(error.error.error);
       }
     );
   }
@@ -88,7 +89,7 @@ export class BooksComponent implements OnInit {
             }
           },
           (error) => {
-            console.error('Error updating book', error);
+            this.notificationService.showError(error.error.error);
           }
         );
       }
