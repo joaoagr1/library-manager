@@ -9,7 +9,14 @@ import { Book } from '../models/books.model';
 })
 export class BooksComponent implements OnInit {
   books: Book[] = [];
-  recommendedBooks: Book[] = [];
+  newBook: Book = {
+    title: '',
+    author: '',
+    isbn: '',
+    publicationDate: '',
+    category: ''
+  };
+  displayedColumns: string[] = ['id', 'title', 'author', 'isbn', 'publicationDate', 'category', 'actions'];
 
   constructor(private booksService: BooksService) {}
 
@@ -28,10 +35,11 @@ export class BooksComponent implements OnInit {
     );
   }
 
-  createBook(book: Book): void {
-    this.booksService.createBook(book).subscribe(
+  createBook(): void {
+    this.booksService.createBook(this.newBook).subscribe(
       (newBook: Book) => {
         this.books.push(newBook);
+        this.resetNewBook();
       },
       (error) => {
         console.error('Error creating book', error);
@@ -39,21 +47,11 @@ export class BooksComponent implements OnInit {
     );
   }
 
-  updateBook(id: string, book: Book): void {
-    this.booksService.updateBook(id, book).subscribe(
-      (updatedBook: Book) => {
-        const index = this.books.findIndex(b => b.id === id);
-        if (index !== -1) {
-          this.books[index] = updatedBook;
-        }
-      },
-      (error) => {
-        console.error('Error updating book', error);
-      }
-    );
-  }
-
-  deleteBook(id: string): void {
+  deleteBook(id?: string): void {
+    if (!id) {
+      console.error('Book ID is undefined');
+      return;
+    }
     this.booksService.deleteBook(id).subscribe(
       () => {
         this.books = this.books.filter(b => b.id !== id);
@@ -64,14 +62,13 @@ export class BooksComponent implements OnInit {
     );
   }
 
-  getRecommendedBooks(userId: string): void {
-    this.booksService.getRecommendedBooks(userId).subscribe(
-      (data: Book[]) => {
-        this.recommendedBooks = data;
-      },
-      (error) => {
-        console.error('Error fetching recommended books', error);
-      }
-    );
+  private resetNewBook(): void {
+    this.newBook = {
+      title: '',
+      author: '',
+      isbn: '',
+      publicationDate: '',
+      category: ''
+    };
   }
 }
