@@ -44,7 +44,7 @@ public class Users {
     private LocalDate registrationDate = LocalDate.now();
 
     @NotBlank(message = "Phone is required")
-    @Length(min = 10, max = 15)
+    @Length(min = 8, max = 14,message = "Phone must be between 8 and 14 characters")
     private String phone;
 
 }
