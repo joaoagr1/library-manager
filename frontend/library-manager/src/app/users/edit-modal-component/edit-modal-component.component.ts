@@ -5,6 +5,8 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'edit-modal-component',
   templateUrl: './edit-modal-component.component.html',
+  styleUrls: ['./edit-modal-component.component.css']
+
 })
 export class EditUserModalComponent {
   constructor(
@@ -17,6 +19,7 @@ export class EditUserModalComponent {
   }
 
   onSave(): void {
+    
     this.dialogRef.close(this.data.form.value);
   }
 }

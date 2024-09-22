@@ -27,7 +27,10 @@ export class UsersService {
   }
 
   updateUser(user: any): Observable<any> {
-    console.log(user);
+    // console.log("user clicadoooooooo");
+    // console.log(user);
+
+    console.log("entrou no serive????");
 
     return this.http.put(`${this.apiUrl}/${user.id}`, user);
   }

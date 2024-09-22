@@ -4,6 +4,7 @@ import com.manager.library.adapter.UserAdapter;
 import com.manager.library.domain.Users;
 import com.manager.library.dtos.UserRequestDTO;
 import com.manager.library.exceptions.EntityNotFoundException;
+import com.manager.library.repository.LoanRepository;
 import com.manager.library.repository.UsersRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class UsersService {
 
     @Autowired
     private UsersRepository repository;
+    @Autowired
+    private LoanRepository loanRepository;
 
     public Users createUser(UserRequestDTO userRequestDTO) {
 
@@ -41,6 +44,10 @@ public class UsersService {
     public void deleteUser(UUID id) {
 
         repository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        if (!loanRepository.findAllByUserId(id).isEmpty()) {
+            throw new IllegalArgumentException("User has active loans");
+        }
 
         repository.deleteById(id);
 
