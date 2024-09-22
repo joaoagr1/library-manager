@@ -13,6 +13,7 @@ export class LoansService {
   constructor(private http: HttpClient) {}
 
   createLoan(loanRequestDTO: Loan): Observable<Loan> {
+    console.log(loanRequestDTO);
     return this.http.post<Loan>(this.apiUrl, loanRequestDTO);
   }
 

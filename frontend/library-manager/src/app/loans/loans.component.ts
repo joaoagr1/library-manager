@@ -14,8 +14,8 @@ export class LoansComponent implements OnInit {
   newLoan: Loan = {
     userId: '',
     bookId: '',
-    loanDate: '',
-    returnDate: ''
+    returnDate: '',
+    loanStatus:'ACTIVE',
   };
 
   isEditing: boolean = false; 
