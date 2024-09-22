@@ -14,6 +14,7 @@ export class BooksService {
   constructor(private http: HttpClient, private notificationService: NotificationService) {}
 
   createBook(book: Book): Observable<Book> {
+    console.log(book.author + " " + book.title + " " + book.category + " " + book.isbn + " " + book.publicationDate);
     return this.http.post<Book>(this.apiUrl, book);
   }
 

@@ -38,6 +38,7 @@ export class BooksComponent implements OnInit {
   createBook(): void {
     this.booksService.createBook(this.newBook).subscribe(
       (newBook: Book) => {
+        console.log('component: ', newBook);
         this.books.push(newBook);
         this.resetNewBook();
       },
