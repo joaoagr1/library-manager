@@ -11,13 +11,8 @@ Library Manager is an Angular application designed to manage book loans in a lib
   - Installation
   - [Running the Application](#running-the-application)
   - [Project Structure](#project-structure)
-  - Services
-  - Components
-  - Models
-  - Styling
   - [Error Handling](#error-handling)
-  - Contributing
-  - License
+  
 
 
 ## Prerequisites
