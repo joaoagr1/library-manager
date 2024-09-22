@@ -24,7 +24,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="loan_date" type="date">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="return_date" type="date">
                 <constraints nullable="false"/>

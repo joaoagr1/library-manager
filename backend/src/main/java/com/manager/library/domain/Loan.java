@@ -38,7 +38,6 @@ public class Loan {
     private Book book;
 
     @PastOrPresent(message = "Loan date must be a past or present date")
-    @NotNull(message = "Loan date is required")
     private LocalDate loanDate = LocalDate.now();
 
     @NotNull(message = "Return date is required")
@@ -46,7 +45,6 @@ public class Loan {
     private LocalDate returnDate;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "Status is required")
     private LoanStatus status = LoanStatus.ACTIVE;;
 
 }
