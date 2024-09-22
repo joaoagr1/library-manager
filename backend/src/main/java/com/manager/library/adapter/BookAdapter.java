@@ -15,7 +15,12 @@ public class BookAdapter {
 
     public static Book toEntity(BookRequestDTO dto) {
 
-        return Book.builder().title(dto.title()).author(dto.author()).isbn(dto.isbn()).publicationDate(dto.publicationDate()).category(dto.category()).build();
+        return Book.builder().title(dto.title())
+                .author(dto.author())
+                .isbn(dto.isbn())
+                .publicationDate(dto.publicationDate())
+                .category(dto.category())
+                .build();
 
     }
 
@@ -26,7 +31,16 @@ public class BookAdapter {
 
         Year publishedYear = parsePublishedYear(volumeInfo.getPublishedDate());
 
-        return Book.builder().title(volumeInfo.getTitle()).author(volumeInfo.getAuthors().get(0)).isbn(volumeInfo.getIndustryIdentifiers().get(1).getIdentifier()).category(Category.valueOf(volumeInfo.getCategories().get(0).toUpperCase())).publicationDate(publishedYear).build();
+        return Book.builder()
+                .title(volumeInfo.getTitle())
+                .author(volumeInfo.getAuthors().get(0))
+                .isbn(volumeInfo.getIndustryIdentifiers()
+                        .get(1)
+                        .getIdentifier())
+                .category(Category.valueOf(volumeInfo.getCategories()
+                        .get(0).toUpperCase()))
+                .publicationDate(publishedYear)
+                .build();
     }
 
 
@@ -34,7 +48,14 @@ public class BookAdapter {
 
         GoogleBooksResponseDTO.Item.VolumeInfo volumeInfo = item.getVolumeInfo();
 
-        GoogleBooksDetailResponseDTO.VolumeInfo dtoVolumeInfo = new GoogleBooksDetailResponseDTO.VolumeInfo(volumeInfo.getTitle(), volumeInfo.getAuthors(), volumeInfo.getPublishedDate(), volumeInfo.getIndustryIdentifiers().stream().map(industryIdentifier -> new GoogleBooksDetailResponseDTO.IndustryIdentifier(industryIdentifier.getType(), industryIdentifier.getIdentifier())).toList(), volumeInfo.getCategories());
+        GoogleBooksDetailResponseDTO.VolumeInfo dtoVolumeInfo = new GoogleBooksDetailResponseDTO.VolumeInfo(
+                volumeInfo.getTitle(),
+                volumeInfo.getAuthors(),
+                volumeInfo.getPublishedDate(),
+                volumeInfo.getIndustryIdentifiers().stream()
+                        .map(industryIdentifier -> new GoogleBooksDetailResponseDTO.IndustryIdentifier(
+                                industryIdentifier.getType(), industryIdentifier.getIdentifier())).toList(),
+                volumeInfo.getCategories());
         return GoogleBooksDetailResponseDTO.builder().id(item.getId()).volumeInfo(dtoVolumeInfo).build();
     }
 
