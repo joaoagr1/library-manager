@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.manager.library.domain.Users;
 import com.manager.library.dtos.UserRequestDTO;
 import com.manager.library.exceptions.EntityNotFoundException;
+import com.manager.library.repository.LoanRepository;
 import com.manager.library.repository.UsersRepository;
 import com.manager.library.service.UsersService;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,6 +28,9 @@ public class UsersServiceTest {
 
     @Mock
     private UsersRepository repository;
+
+    @Mock
+    private LoanRepository looansRepository;
 
     @InjectMocks
     private UsersService usersService;
@@ -109,12 +113,13 @@ public class UsersServiceTest {
     @DisplayName("Should delete a user")
     void shouldDeleteAUser() {
 
-        when(repository.findById(userId)).thenReturn(java.util.Optional.of(user));
+        when(repository.findById(userId)).thenReturn(Optional.of(user)); // Mockar a busca do usuário
+        when(looansRepository.findAllByUserId(userId)).thenReturn(List.of()); // Mockar a busca por empréstimos
 
-        usersService.deleteUser(userId);
+        usersService.deleteUser(userId); // Executa o método a ser testado
 
-        verify(repository, times(1)).findById(userId);
-        verify(repository, times(1)).deleteById(userId);
+        verify(repository, times(1)).findById(userId); // Verificar se a busca foi feita
+        verify(repository, times(1)).deleteById(userId); // Verificar se a exclusão foi feita
     }
 
 
