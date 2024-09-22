@@ -10,7 +10,9 @@ export class NotificationService {
   showError(message: string): void {
     this.snackBar.open(message, 'Close', {
       duration: 10000,
-      panelClass: ['error-snackbar']
+      panelClass: ['error-snackbar'],
+      verticalPosition: 'top' // Ajusta a posição vertical para o topo
+
     });
   }
 }

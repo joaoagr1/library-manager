@@ -52,3 +52,11 @@ mat-toolbar {
   .bottom-toolbar button:hover {
     background-color: #aeaeae; /* Cor de fundo ao passar o mouse */
   }
+
+
+  /* styles.css */
+.error-snackbar {
+  margin-top: 20px; /* Ajuste conforme necessário */
+  background-color: #f44336; /* Cor de fundo para erro */
+  color: white; /* Cor do texto */
+}

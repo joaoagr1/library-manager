@@ -55,7 +55,7 @@ export class UserComponent implements OnInit {
         this.loadUsers(); 
       },
       error => {
-        this.notificationService.showError(error);
+        this.notificationService.showError(error.error.error);
       }
     );
   }
@@ -95,15 +95,19 @@ export class UserComponent implements OnInit {
   }
 
   onSubmit(userId: number): void {
-    if (this.editUserForm.valid) {
+    console.log("onSubmit");
+    console.log(this.editUserForm.value);
+    
       this.usersService.updateUser(this.editUserForm.value).subscribe(
         response => {
           this.loadUsers();
         },
         error => {
-          this.notificationService.showError(error);
+          this.notificationService.showError('Failed to update user');
         }
       );
     }
   }
-}
+
+  
+  
