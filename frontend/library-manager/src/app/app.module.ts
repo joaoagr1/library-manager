@@ -17,6 +17,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
+import { EditBookDialogComponent } from './books/edit-book-dialog/edit-book-dialog.component';
+import { MatSelectModule } from '@angular/material/select'; // Adicione esta linha
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { HomeComponent } from './home/home.component';
     BooksComponent,
     LoansComponent,
     EditUserModalComponent,
-    HomeComponent
+    HomeComponent,
+    EditBookDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { HomeComponent } from './home/home.component';
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSelectModule
   ],
   providers: [
     NotificationService

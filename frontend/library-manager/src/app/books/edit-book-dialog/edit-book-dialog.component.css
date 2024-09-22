@@ -1,0 +1,39 @@
+/* Centralizar o conteúdo do diálogo */
+mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  mat-form-field {
+    width: 100%;
+    max-width: 400px; /* Largura máxima para os campos do formulário */
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: center; /* Centralizar os botões */
+    gap: 10px;
+    padding-top: 20px; /* Espaçamento superior */
+  }
+  
+  .button {
+    padding: 10px 20px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-weight: bold;
+    transition: background-color 0.3s; /* Transição suave */
+    color: #333; /* Cor do texto dos botões */
+    background-color: transparent; /* Fundo transparente */
+    border: 1px solid #333; /* Borda */
+    margin: 1.5px;
+  }
+  
+  .button:hover {
+    background-color: #333; /* Cor de fundo ao passar o mouse */
+    color: white; /* Cor do texto ao passar o mouse */
+  }
+  
+  .button-primary {
+    background-color: #333; /* Fundo azul */
+    color: white; /* Cor do texto */
+  }

@@ -21,7 +21,7 @@
       <option *ngFor="let category of categories" [value]="category" class="custom-option">{{category}}</option>
     </select>
   </div>
-  <button type="submit" class="btn btn-success">Add Book</button>
+  <button type="submit" class="btn btn-success">{{ isEditing ? 'Update Book' : 'Add Book' }}</button>
 </form>
 
 <table id="books-table" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -60,6 +60,8 @@
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let book">
       <button class="btn btn-danger" (click)="deleteBook(book.id)">Delete</button>
+
+      <button class="btn btn-primary" (click)="editBook(book)">Update</button>
     </td>
   </ng-container>
 

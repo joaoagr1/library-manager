@@ -6,6 +6,7 @@ import { BooksComponent } from './books/books.component';
 import { LoansComponent } from './loans/loans.component';
 import { HomeComponent } from './home/home.component';
 
+
 const routes: Routes = [
   { path: 'users', component: UserComponent },
   { path: 'books', component: BooksComponent },
