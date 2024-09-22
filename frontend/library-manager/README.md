@@ -1,5 +1,3 @@
-![image](https://github.com/user-attachments/assets/b7144792-179c-4088-b7ff-59d126660571)Sure, here is a comprehensive README documentation for your Angular application:
-
 # Library Manager
 
 Library Manager is an Angular application designed to manage book loans in a library. It allows users to view, edit, and manage loans, including details about users and books.
@@ -112,11 +110,11 @@ src/
 
 Screens:
 
-![image](https://github.com/user-attachments/assets/f4f00c97-43a1-4b16-951e-2f9357cce363)
+![image](https://github.com/user-attachments/assets/b7e9521c-862f-4fd5-82da-5c24cabc9daf)
 
-![image](https://github.com/user-attachments/assets/730646fa-027d-4d4c-ab27-1900f1dded73)
+![image](https://github.com/user-attachments/assets/68b32144-1b4c-409c-84de-d22025b0f3fc)
 
-![image](https://github.com/user-attachments/assets/6ba954fb-632a-41b4-84e3-1d533fc20ba6)
+![image](https://github.com/user-attachments/assets/92fede05-ca66-4929-b472-309270091649)
 
-![image](https://github.com/user-attachments/assets/be0449b1-dae0-480d-8cf1-31569a70281a)
+![image](https://github.com/user-attachments/assets/4be83444-7122-4c1b-9bd4-e5d85b5b38b3)
 
